@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+// هنا تسدح كل الارقام أي رقم يضغط عليه توديه للكمبونينت نمبر عشان يشوف ويسمع الحرف
+
 class Numbers extends StatefulWidget {
   const Numbers({Key? key, required this.title}) : super(key: key);
 

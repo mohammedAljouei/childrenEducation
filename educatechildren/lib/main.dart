@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'screens/letters.dart';
 import 'screens/numbers.dart';
+import 'screens/childProgress.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,7 +65,12 @@ class _TabsScreenState extends State<TabsScreen> {
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChildProgress()),
+                    );
+                  },
                   child: Text(
                     'تقدم الطفل',
                     style: TextStyle(color: Colors.black),

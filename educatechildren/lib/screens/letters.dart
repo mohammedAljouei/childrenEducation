@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+// هنا تسدح كل الحروف أي حرف يضغط عليه توديه للكمبونينت ليتر عشان يشوف ويسمع الحرف
 class Letters extends StatefulWidget {
   const Letters({Key? key, required this.title}) : super(key: key);
 
