@@ -1,6 +1,8 @@
 import 'package:educatechildren/constants.dart';
 import 'package:educatechildren/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:educatechildren/try and vaildate/writing/letters/ValidateWr.dart';
+
 // import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Body extends StatelessWidget {
@@ -65,10 +67,11 @@ class Body extends StatelessWidget {
                   crossAxisSpacing: 10,
                   reverse: true,
                   children: [
-                    for (var i in imagesUrl)
+                    for (var i = 0; i < imagesUrl.length; i++)
                       letterWidget(
-                        image: i,
-                        rotate: i.length % 2 == 0 ? -0.08 : 0.08,
+                        image: imagesUrl[i],
+                        rotate: imagesUrl[i].length % 2 == 0 ? -0.08 : 0.08,
+                        letterId: i,
                       ),
                   ],
                 ),
@@ -86,21 +89,23 @@ class letterWidget extends StatelessWidget {
     Key? key,
     required this.image,
     required this.rotate,
+    required this.letterId,
   }) : super(key: key);
 
   final String image;
   final double rotate;
+  final int letterId;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      transform: new Matrix4.rotationZ(rotate),
+      transform: Matrix4.rotationZ(rotate),
       padding: const EdgeInsets.only(bottom: 15),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const homePage()),
+            MaterialPageRoute(builder: (context) => ValidateW(letterId)),
           );
         },
         child: Image.asset(

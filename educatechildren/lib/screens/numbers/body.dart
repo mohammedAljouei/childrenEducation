@@ -1,6 +1,7 @@
 import 'package:educatechildren/constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:educatechildren/try and vaildate/writing/numbers/ValidateWr.dart';
+//ValidatePro
 import '../home_page.dart';
 
 class Body extends StatelessWidget {
@@ -45,10 +46,11 @@ class Body extends StatelessWidget {
                   crossAxisSpacing: 10,
                   reverse: true,
                   children: [
-                    for (var i in imagesUrl)
+                    for (var i = 0; i < imagesUrl.length; i++)
                       numberWidget(
-                        image: i,
-                        rotate: i.length % 2 == 0 ? -0.08 : 0.08,
+                        image: imagesUrl[i],
+                        rotate: imagesUrl[i].length % 2 == 0 ? -0.08 : 0.08,
+                        numberId: i,
                       ),
                   ],
                 ),
@@ -66,10 +68,12 @@ class numberWidget extends StatelessWidget {
     Key? key,
     required this.image,
     required this.rotate,
+    required this.numberId,
   }) : super(key: key);
 
   final String image;
   final double rotate;
+  final int numberId;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +84,7 @@ class numberWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const homePage()),
+            MaterialPageRoute(builder: (context) => ValidateW(numberId)),
           );
         },
         child: Image.asset(

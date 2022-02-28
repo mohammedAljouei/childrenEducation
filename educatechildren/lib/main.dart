@@ -15,11 +15,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Welcome to Flutter',
-      home: Directionality(
-        // add this
-        textDirection: TextDirection.rtl, // عربي
-        child: TabsScreen(),
-      ),
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => Directionality(
+              // add this
+              textDirection: TextDirection.rtl, // عربي
+              child: TabsScreen(),
+            ),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/home': (context) => const homePage(),
+      },
     );
   }
 }
