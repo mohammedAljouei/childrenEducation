@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:educatechildren/constants.dart';
-import '../../pronunciation/numbers/ValidatePro.dart';
+import '../../pronunciation/letters/ValidateProLett.dart';
 
-class Good extends StatelessWidget {
+class GoodJobWrLett extends StatelessWidget {
   final letter;
   // ignore: use_key_in_widget_constructors
-  const Good(this.letter);
+  const GoodJobWrLett(this.letter);
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,11 @@ class Good extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ValidatePro(letter)),
+                          builder: (context) => ValidateProLett(letter)),
                     );
                   },
                   child: const Text(
-                    'لـننطق الرقم!',
+                    'لـننطق الحرف',
                     style: TextStyle(backgroundColor: Color(0xFF80CBC4)),
                   ),
                   style: ElevatedButton.styleFrom(

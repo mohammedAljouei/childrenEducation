@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:educatechildren/constants.dart';
 
-class Good extends StatelessWidget {
+class GoodJobProLett extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const Good();
+  const GoodJobProLett();
 
   @override
   Widget build(BuildContext context) {

@@ -3,11 +3,11 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:educatechildren/constants.dart';
-import 'Good.dart';
+import 'GoodJobProLett.dart';
 
-class ValidatePro extends StatelessWidget {
+class ValidateProLett extends StatelessWidget {
   final int charId;
-  ValidatePro(this.charId, {Key? key}) : super(key: key);
+  ValidateProLett(this.charId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +191,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
               print('good');
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Good()),
+                MaterialPageRoute(builder: (context) => const GoodJobProLett()),
               );
               setState(() => _isListening = false);
               _speech.stop();

@@ -1,7 +1,7 @@
 import 'package:educatechildren/constants.dart';
 import 'package:educatechildren/screens/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:educatechildren/try and vaildate/writing/letters/ValidateWr.dart';
+import 'package:educatechildren/try%20and%20vaildate/writing/letters/ValidateWrLett.dart';
 
 // import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -105,7 +105,7 @@ class letterWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ValidateW(letterId)),
+            MaterialPageRoute(builder: (context) => ValidateWrLett(letterId)),
           );
         },
         child: Image.asset(

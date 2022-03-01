@@ -1,26 +1,25 @@
 // ignore_for_file: file_names, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:image_painter/image_painter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
-import 'Good.dart';
+import 'GoodJobWrNum.dart';
 import 'package:educatechildren/constants.dart';
 
 // ignore: use_key_in_widget_constructors
-class Check extends StatefulWidget {
+class CheckWrNum extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final char;
   final re;
   final url;
   // ignore: use_key_in_widget_constructors
-  const Check(this.char, this.re, this.url);
+  const CheckWrNum(this.char, this.re, this.url);
 
   @override
   CheckState createState() => CheckState(char, re, url);
 }
 
-class CheckState extends State<Check> {
+class CheckState extends State<CheckWrNum> {
   final charId;
   final _resulte;
   final url;
@@ -32,41 +31,23 @@ class CheckState extends State<Check> {
 
   final _key = GlobalKey<ScaffoldState>();
 
-  List<String> chars = [
-    "الف",
-    "باء",
-    "تاء",
-    "ثاء",
-    "جيم",
-    "حاء",
-    "خاء",
-    "دال",
-    "ذال",
-    "راء",
-    "زاء",
-    "سين",
-    "شين",
-    "صاد",
-    "ضاد",
-    "طاء",
-    "ظاء",
-    "عين",
-    "غين",
-    "فاء",
-    "قاف",
-    "كاف",
-    "لام",
-    "ميم",
-    "نون",
-    "هاء",
-    "واو",
-    "ياء",
+  List<String> numbers = [
+    "صفر",
+    "واحد",
+    "اثنين",
+    "ثلاثة",
+    "أربعة",
+    "خمسة",
+    "ستة",
+    "سبعة",
+    "ثمانية",
+    "تسعة",
   ];
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    var char = chars[charId];
+    var char = numbers[charId];
 
     return _bad
         ? Scaffold(
@@ -86,7 +67,8 @@ class CheckState extends State<Check> {
                       if (message.message == char) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Good(charId)),
+                          MaterialPageRoute(
+                              builder: (context) => GoodJobWrNum(charId)),
                         );
                       } else {
                         setState(() {

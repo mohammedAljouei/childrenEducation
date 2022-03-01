@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, no_logic_in_create_state
 import 'dart:io';
+import 'package:educatechildren/try%20and%20vaildate/writing/letters/GoodJobWrLett.dart';
 import 'package:flutter/material.dart';
 import 'package:image_painter/image_painter.dart';
 import 'package:open_file/open_file.dart';
@@ -8,24 +9,24 @@ import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:educatechildren/constants.dart';
-import 'Check.dart';
+import 'CheckWrLett.dart';
 
 // ignore: use_key_in_widget_constructors
-class ValidateW extends StatefulWidget {
+class ValidateWrLett extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final charId;
   // ignore: use_key_in_widget_constructors
-  const ValidateW(this.charId);
+  const ValidateWrLett(this.charId);
 
   @override
   _ImagePainterExampleState createState() => _ImagePainterExampleState(charId);
 }
 
-class _ImagePainterExampleState extends State<ValidateW> {
+class _ImagePainterExampleState extends State<ValidateWrLett> {
   final charId;
   _ImagePainterExampleState(this.charId);
   var _resulte = '';
-  var url = 'https://teachablemachine.withgoogle.com/models/M2EnauBBR/';
+  var url = '';
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
@@ -56,9 +57,28 @@ class _ImagePainterExampleState extends State<ValidateW> {
     print(response.statusCode);
     _resulte = nameOfFile;
 
+    if (charId == 9 ||
+        charId == 25 ||
+        charId == 10 ||
+        charId == 11 ||
+        charId == 12) {
+      url = 'https://teachablemachine.withgoogle.com/models/8f2G0-S4B/';
+    } else if (charId == 13 ||
+        charId == 14 ||
+        charId == 16 ||
+        charId == 18 ||
+        charId == 26) {
+      url = 'https://teachablemachine.withgoogle.com/models/HsQ2IxxjT/';
+    } else {
+      url = 'https://teachablemachine.withgoogle.com/models/Ny0xvNhBg/';
+    }
+
+    // if you use a device not a simulator uncomment the comment, and delete GoodJobWrNum(charId)
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Check(charId, _resulte, url)),
+      MaterialPageRoute(
+          builder: (context) =>
+              GoodJobWrLett(charId) /*CheckWrLett(charId, _resulte, url)*/),
     );
   }
 
@@ -128,11 +148,11 @@ class _ImagePainterExampleState extends State<ValidateW> {
                     width: 400,
                     height: 400,
                     child: ImagePainter.asset(
-                      "assets/images/testwhite.png",
+                      "assets/images/black1.png",
                       key: _imageKey,
                       scalable: true,
                       initialStrokeWidth: 2,
-                      initialColor: Colors.black,
+                      initialColor: Colors.white,
                       initialPaintMode: PaintMode.freeStyle,
                     ),
                   )),
@@ -154,5 +174,85 @@ class _ImagePainterExampleState extends State<ValidateW> {
         ),
       ),
     );
+
+    // Scaffold(
+    //   key: _key,
+    //   appBar: AppBar(
+    //     backgroundColor: const Color(0xFF80CBC4),
+    //     actions: [
+    //       ElevatedButton(
+    //         onPressed: saveImage,
+    //         child: const Icon(
+    //           Icons.add_task_rounded,
+    //           color: Colors.white,
+    //           size: 30,
+    //         ),
+    //         style: ButtonStyle(
+    //             backgroundColor:
+    //                 MaterialStateProperty.all(const Color(0xFF80CBC4))),
+    //       ),
+    //     ],
+    //   ),
+    //   body: _resulte == ''
+    //       ? ListView(
+    //           children: [
+    //             Container(
+    //               width: 400,
+    //               height: 400,
+    //               child: ImagePainter.asset(
+    //                 "lib/assets/black1.png",
+    //                 key: _imageKey,
+    //                 scalable: true,
+    //                 initialStrokeWidth: 2,
+    //                 initialColor: Colors.white,
+    //                 initialPaintMode: PaintMode.freeStyle,
+    //               ),
+    //             ),
+    //             IconButton(
+    //               icon: const Icon(
+    //                 Icons.directions_transit,
+    //               ),
+    //               iconSize: 50,
+    //               color: Colors.green,
+    //               splashColor: Colors.purple,
+    //               onPressed: () {},
+    //             ),
+    //             Container(
+    //               // color: Colors.black,
+    //               // margin: const EdgeInsets.only(bottom: 15),
+    //               // alignment: Alignment.bottomCenter,
+    //               child: Image.asset(
+    //                 "assets/images/61 Children S Day Balloons Children.jpg",
+    //               ),
+    //             )
+    //           ],
+    //         )
+    //       : WebView(
+    //           initialUrl:
+    //               'https://mutamimon.com/myModel/index.php?m=https://teachablemachine.withgoogle.com/models/Ny0xvNhBg/=$_resulte',
+    //           javascriptMode: JavascriptMode.unrestricted,
+    //           javascriptChannels: {
+    //             JavascriptChannel(
+    //                 name: 'Print',
+    //                 onMessageReceived: (JavascriptMessage message) {
+    //                   print(message.message);
+    //                   if (message.message == char) {
+    //                     Navigator.push(
+    //                       context,
+    //                       MaterialPageRoute(builder: (context) => const Good()),
+    //                     );
+    //                   } else {
+    //                     Navigator.push(
+    //                       context,
+    //                       MaterialPageRoute(builder: (context) => const Bad()),
+    //                     );
+    //                   }
+    //                 })
+    //           },
+    //           onWebViewCreated: (WebViewController webViewController) {
+    //             _controller.complete(webViewController);
+    //           },
+    //         ),
+    // );
   }
 }

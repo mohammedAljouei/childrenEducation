@@ -3,12 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:educatechildren/constants.dart';
-import '../../pronunciation/letters/ValidatePro.dart';
 
-class Good extends StatelessWidget {
-  final letter;
+class GoodJobProNum extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
-  const Good(this.letter);
+  const GoodJobProNum();
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +32,10 @@ class Good extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 200, right: 10, left: 10),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ValidatePro(letter)),
-                    );
+                    Navigator.pushNamed(context, '/home');
                   },
                   child: const Text(
-                    'لـننطق الحرف!',
+                    'أحســنـــت',
                     style: TextStyle(backgroundColor: Color(0xFF80CBC4)),
                   ),
                   style: ElevatedButton.styleFrom(

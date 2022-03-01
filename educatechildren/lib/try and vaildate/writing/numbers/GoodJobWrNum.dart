@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:educatechildren/constants.dart';
+import '../../pronunciation/numbers/ValidateProNum.dart';
 
-class Good extends StatelessWidget {
+class GoodJobWrNum extends StatelessWidget {
+  final letter;
   // ignore: use_key_in_widget_constructors
-  const Good();
+  const GoodJobWrNum(this.letter);
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,14 @@ class Good extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 200, right: 10, left: 10),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ValidateProNum(letter)),
+                    );
                   },
                   child: const Text(
-                    'أحســنـــت',
+                    'لـننطق الرقم',
                     style: TextStyle(backgroundColor: Color(0xFF80CBC4)),
                   ),
                   style: ElevatedButton.styleFrom(

@@ -1,6 +1,6 @@
 import 'package:educatechildren/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:educatechildren/try and vaildate/writing/numbers/ValidateWr.dart';
+import 'package:educatechildren/try%20and%20vaildate/writing/numbers/ValidateWrNum.dart';
 //ValidatePro
 import '../home_page.dart';
 
@@ -84,7 +84,7 @@ class numberWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ValidateW(numberId)),
+            MaterialPageRoute(builder: (context) => ValidateWrNum(numberId)),
           );
         },
         child: Image.asset(

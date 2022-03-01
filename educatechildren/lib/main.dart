@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
               child: TabsScreen(),
             ),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/home': (context) => const homePage(),
+        '/home': (context) => Directionality(
+              // add this
+              textDirection: TextDirection.rtl, // عربي
+              child: homePage(),
+            )
       },
     );
   }
