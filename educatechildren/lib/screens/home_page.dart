@@ -1,8 +1,9 @@
-import 'dart:ui';
 import 'package:educatechildren/constants.dart';
 import 'package:educatechildren/screens/letters/letters_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../quiz/letterQuiz.dart';
+import '../quiz/numberQuiz.dart';
 import 'numbers/numbers_screen.dart';
 
 class homePage extends StatefulWidget {
@@ -22,6 +23,28 @@ class _homePageState extends State<homePage> {
         child: ListView(
           children: [
             SizedBox(),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NumberQuiz(currentNumber: 4),
+                  ),
+                );
+              },
+              child: Text("data"),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LetterQuiz(currentNumber: 4),
+                  ),
+                );
+              },
+              child: Text("data"),
+            ),
           ],
         ),
       ),

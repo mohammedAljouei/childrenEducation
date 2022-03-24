@@ -7,18 +7,19 @@ import '../home_page.dart';
 class Body extends StatelessWidget {
   Body({Key? key}) : super(key: key);
 
-  List<String> imagesUrl = [
-    "assets/images/numbers/Arabic_numbers_0.png",
-    "assets/images/numbers/Arabic_numbers_1.png",
-    "assets/images/numbers/Arabic_numbers_2.png",
-    "assets/images/numbers/Arabic_numbers_3.png",
-    "assets/images/numbers/Arabic_numbers__4.png",
-    "assets/images/numbers/Arabic_numbers__5.png",
-    "assets/images/numbers/Arabic_numbers__6.png",
-    "assets/images/numbers/Arabic_numbers__7.png",
-    "assets/images/numbers/Arabic_numbers_8.png",
-    "assets/images/numbers/Arabic_numbers_9.png",
-  ];
+  var imagesUrl = {
+    0: "assets/images/numbers/Arabic_numbers_0.png",
+    1: "assets/images/numbers/Arabic_numbers_1.png",
+    2: "assets/images/numbers/Arabic_numbers_2.png",
+    3: "assets/images/numbers/Arabic_numbers_3.png",
+    4: "assets/images/numbers/Arabic_numbers__4.png",
+    5: "assets/images/numbers/Arabic_numbers__5.png",
+    6: "assets/images/numbers/Arabic_numbers__6.png",
+    7: "assets/images/numbers/Arabic_numbers__7.png",
+    8: "assets/images/numbers/Arabic_numbers_8.png",
+    9: "assets/images/numbers/Arabic_numbers_9.png",
+  };
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -48,8 +49,8 @@ class Body extends StatelessWidget {
                   children: [
                     for (var i = 0; i < imagesUrl.length; i++)
                       numberWidget(
-                        image: imagesUrl[i],
-                        rotate: imagesUrl[i].length % 2 == 0 ? -0.08 : 0.08,
+                        image: imagesUrl[i]!,
+                        rotate: i % 2 == 0 ? -0.08 : 0.08,
                         numberId: i,
                       ),
                   ],
