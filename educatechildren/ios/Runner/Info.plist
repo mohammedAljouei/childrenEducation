@@ -47,5 +47,11 @@
 	<string>لتصحيح نطق الحرف</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>للوصول للمايكرفون</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <true/>
+    </dict>
+	
 </dict>
 </plist>

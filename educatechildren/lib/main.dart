@@ -1,29 +1,44 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
-import 'package:educatechildren/screens/home_page.dart';
+import 'package:educatechildren/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'screens/Auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+final _storage = FlutterSecureStorage();
+Future checkAuth() async {
+  var token = await _storage.read(key: 'token');
+  return token;
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _token = null;
 
   @override
   Widget build(BuildContext context) {
+    checkAuth().then((value) => setState(() {
+          _token = value;
+        }));
+    // final _storage = FlutterSecureStorage();
+    // _storage.deleteAll();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Welcome to Flutter',
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => Directionality(
-              // add this
               textDirection: TextDirection.rtl, // عربي
-              child: TabsScreen(),
+              child: _token == null ? AuthScreen() : TabsScreen(),
             ),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/home': (context) => Directionality(
               // add this
               textDirection: TextDirection.rtl, // عربي

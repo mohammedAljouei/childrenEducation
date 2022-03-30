@@ -41,6 +41,9 @@ dependencies:
   open_file:
   path_provider:
   http:
+  flutter_secure_storage: ^4.2.1
+  video_player: 
+
 
 
 dev_dependencies:
@@ -69,6 +72,10 @@ flutter:
     - assets/images/
     - assets/images/alphabet/
     - assets/images/numbers/
+    - assets/images/trying/
+    - assets/videos/
+    - assets/videos/letters/
+    - assets/videos/numbers/
 
 
     

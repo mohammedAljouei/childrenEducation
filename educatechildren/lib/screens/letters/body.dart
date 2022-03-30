@@ -1,9 +1,5 @@
-import 'package:educatechildren/constants.dart';
-import 'package:educatechildren/screens/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:educatechildren/try%20and%20vaildate/writing/letters/ValidateWrLett.dart';
-
-// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../ChildLearningFlow.dart';
 
 class Body extends StatelessWidget {
   Body({Key? key}) : super(key: key);
@@ -43,43 +39,38 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: kPrimaryBackgroundColor,
-      body: Container(
-        child: Stack(
-          children: [
-            Container(
-              child: Image.asset(
-                "assets/images/backgroud_letters.png",
-                fit: BoxFit.fill,
-                height: double.infinity,
-                width: double.infinity,
-                alignment: Alignment.center,
-              ),
-            ),
-            Center(
-              child: Container(
-                width: width / 1.2,
-                margin: const EdgeInsets.only(bottom: 200, right: 10, left: 10),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 50,
-                  crossAxisSpacing: 10,
-                  reverse: true,
-                  children: [
-                    for (var i = 0; i < imagesUrl.length; i++)
-                      letterWidget(
-                        image: imagesUrl[i],
-                        rotate: imagesUrl[i].length % 2 == 0 ? -0.08 : 0.08,
-                        letterId: i,
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+    return Stack(
+      children: [
+        Container(
+          child: Image.asset(
+            "assets/images/backgroud_letters.png",
+            fit: BoxFit.fill,
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.center,
+          ),
         ),
-      ),
+        Center(
+          child: Container(
+            width: width / 1.2,
+            margin: const EdgeInsets.only(bottom: 200, right: 10, left: 10),
+            child: GridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 50,
+              crossAxisSpacing: 10,
+              reverse: true,
+              children: [
+                for (var i = 0; i < imagesUrl.length; i++)
+                  letterWidget(
+                    image: imagesUrl[i],
+                    rotate: imagesUrl[i].length % 2 == 0 ? -0.08 : 0.08,
+                    letterId: i + 10,
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -105,7 +96,7 @@ class letterWidget extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ValidateWrLett(letterId)),
+            MaterialPageRoute(builder: (context) => ChildFlow(letterId)),
           );
         },
         child: Image.asset(
