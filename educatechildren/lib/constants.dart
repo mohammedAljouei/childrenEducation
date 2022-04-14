@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color(0xFF6F35A5);
 const kPrimaryBackgroundColor = Color(0xFFfbf5f1);
+const kSecondaryColor = Color(0xFF70a288);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
 const List<String> lettersNumbersimagesUrls = [
   "assets/images/numbers/Arabic_numbers_0.png",

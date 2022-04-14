@@ -2,7 +2,6 @@
 
 import 'package:educatechildren/constants.dart';
 import 'package:educatechildren/screens/letters/letters_screen.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'numbers/numbers_screen.dart';
@@ -11,6 +10,7 @@ import 'dart:convert';
 import 'ChildProgress.dart';
 import 'Auth.dart';
 import 'UpdateInfo.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class homePage extends StatefulWidget {
   const homePage({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   GlobalKey<ScaffoldState> _glogalKey = GlobalKey<ScaffoldState>();
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
   Future getAuthToken() async {
     var token = await _storage.read(key: 'token');
     return token;
@@ -49,7 +49,7 @@ class _homePageState extends State<homePage> {
   }
 
   void logout() {
-    final _storage = FlutterSecureStorage();
+    final _storage = const FlutterSecureStorage();
     _storage.deleteAll();
     Navigator.push(
       context,
@@ -89,24 +89,65 @@ class _homePageState extends State<homePage> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _glogalKey,
       drawer: Drawer(
         child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
           children: [
-            const SizedBox(
-              height: 50,
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: kSecondaryColor,
+              ),
+              child: Center(child: Text('Drawer Header')),
             ),
-            FlatButton(
-                onPressed: () => {goToProgress()},
-                child: const Text('تقدم الطفل')),
-            const SizedBox(),
-            FlatButton(
-                onPressed: () => {goToUpdateInfo()},
-                child: const Text('تحديث البيانات')),
-            const SizedBox(),
-            FlatButton(
-                onPressed: () => {logout()}, child: const Text('تسجيل خروج')),
+            ListTile(
+              minLeadingWidth: 0,
+              leading: Icon(Icons.thumb_up),
+              title: Text(
+                'تقدم الطفل',
+                style: GoogleFonts.elMessiri(
+                  fontSize: 17,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                goToProgress();
+              },
+            ),
+            const Divider(),
+            ListTile(
+              minLeadingWidth: 0,
+              leading: Icon(Icons.update),
+              title: Text(
+                'تحديث البيانات',
+                style: GoogleFonts.elMessiri(
+                  fontSize: 17,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                goToUpdateInfo();
+              },
+            ),
+            const Divider(),
+            ListTile(
+              minLeadingWidth: 0,
+              leading: Icon(Icons.logout),
+              title: Text(
+                'تسجيل خروج',
+                style: GoogleFonts.elMessiri(
+                  fontSize: 17,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                logout();
+              },
+            ),
           ],
         ),
       ),
@@ -126,17 +167,17 @@ class _homePageState extends State<homePage> {
                         onPressed: () {
                           _glogalKey.currentState!.openDrawer();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.menu,
                           size: 40,
-                          color: Colors.black,
+                          color: kSecondaryColor,
                         ),
                         padding: const EdgeInsets.all(0),
                       ),
                       Expanded(child: Container()),
                       Container(
-                        child: CircleAvatar(
-                          backgroundColor: Colors.black,
+                        child: const CircleAvatar(
+                          backgroundColor: kSecondaryColor,
                           radius: 28,
                           child: CircleAvatar(
                             backgroundImage:
@@ -144,38 +185,32 @@ class _homePageState extends State<homePage> {
                             radius: 25,
                           ),
                         ),
-                        // child: Image(
-                        //   image: AssetImage("assets/images/girl.jpg"),
-                        //   fit: BoxFit.fill,
-                        // ),
-                        // decoration: BoxDecoration(
-                        //   borderRadius: BorderRadius.circular(40),
-                        // ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
                 Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
+                  style: GoogleFonts.elMessiri(
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                      ),
+                      fontSize: 30),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 30),
+                  padding: const EdgeInsets.only(right: 15),
                   child: Text(
                     name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
+                    style: GoogleFonts.elMessiri(
+                        textStyle: const TextStyle(
+                          color: Colors.black,
+                        ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 30, bottom: 30),
+                  margin: const EdgeInsets.only(top: 10, bottom: 30),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -183,18 +218,48 @@ class _homePageState extends State<homePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => NumbersScreen(),
+                              builder: (context) => const NumbersScreen(),
                             ),
                           );
                         },
                         child: Container(
-                          child: Center(
-                            child: Image.asset(
-                              "assets/images/Arabic numbers1.png",
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                transform: Matrix4.rotationZ(-0.1),
+                                child: Image.asset(
+                                  "assets/images/numbers/Arabic_numbers_3.png",
+                                  scale: 3.7,
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(left: 9),
+                                padding: const EdgeInsets.all(40),
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color.fromARGB(
+                                                255, 114, 114, 114)
+                                            .withOpacity(0.5),
+                                        spreadRadius: 10,
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                    shape: BoxShape.circle,
+                                    color: const Color(0xffedae49)),
+                                child: Text(
+                                  "الارقام",
+                                  style: GoogleFonts.lemonada(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          height: MediaQuery.of(context).size.height / 4.5,
-                          width: MediaQuery.of(context).size.width,
+                          height: height / 4.5,
+                          width: width,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               boxShadow: [
@@ -202,40 +267,75 @@ class _homePageState extends State<homePage> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 5,
                                   blurRadius: 7,
-                                  offset: Offset(
+                                  offset: const Offset(
                                       0, 3), // changes position of shadow
                                 ),
                               ],
-                              color: Colors.teal[200]),
+                              color: kSecondaryColor),
                         ),
+                      ),
+                      SizedBox(
+                        height: height / 40,
                       ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LettersScreen(),
+                              builder: (context) => const LettersScreen(),
                             ),
                           );
                         },
                         child: Container(
-                          child: Image.asset("assets/images/alphabet1.png"),
-                          margin: const EdgeInsets.only(top: 20),
-                          height: MediaQuery.of(context).size.height / 4.5,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.teal[200],
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(left: 9),
+                                padding: const EdgeInsets.all(40),
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color.fromARGB(
+                                                255, 114, 114, 114)
+                                            .withOpacity(0.5),
+                                        spreadRadius: 10,
+                                        blurRadius: 10,
+                                      ),
+                                    ],
+                                    shape: BoxShape.circle,
+                                    color: const Color(0xffd1495b)),
+                                child: Text(
+                                  "الحروف",
+                                  style: GoogleFonts.lemonada(
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                transform: Matrix4.rotationZ(-0.1),
+                                child: Image.asset(
+                                  "assets/images/alphabet/arabic alphabets continued_رمان ملون.png",
+                                  scale: 3.7,
+                                ),
                               ),
                             ],
                           ),
+                          height: height / 4.5,
+                          width: width,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                              color: kSecondaryColor),
                         ),
                       ),
                     ],
@@ -248,11 +348,12 @@ class _homePageState extends State<homePage> {
           //   height: 70,
           // ),
           Container(
-            // color: Colors.black,
             margin: const EdgeInsets.only(bottom: 15),
+            width: width,
             alignment: Alignment.bottomCenter,
             child: Image.asset(
               "assets/images/61 Children S Day Balloons Children.jpg",
+              fit: BoxFit.cover,
             ),
           )
         ],
@@ -260,273 +361,3 @@ class _homePageState extends State<homePage> {
     );
   }
 }
-
-
-// ignore_for_file: deprecated_member_use
-
-// onTap: () {
-//   Navigator.push(
-//     context,
-//     MaterialPageRoute(
-//       builder: (context) => const NumberQuiz(currentNumber: 4),
-//     ),
-//   );
-// }
-
-// import 'dart:ui';
-// import 'package:educatechildren/constants.dart';
-// import 'package:educatechildren/screens/letters/letters_screen.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-// import 'numbers/numbers_screen.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-// import '../auth.dart';
-// import 'childProgress.dart';
-// import '../updateInfo.dart';
-// import '../quiz/letterQuiz.dart';
-// import '../quiz/numberQuiz.dart';
-
-// class homePage extends StatefulWidget {
-//   const homePage({Key? key}) : super(key: key);
-
-//   @override
-//   _homePageState createState() => _homePageState();
-// }
-
-// class _homePageState extends State<homePage> {
-//   GlobalKey<ScaffoldState> _glogalKey = GlobalKey<ScaffoldState>();
-
-//   final _storage = FlutterSecureStorage();
-//   Future getAuthToken() async {
-//     var token = await _storage.read(key: 'token');
-//     return token;
-//   }
-
-//   String name = '';
-//   String title = '';
-//   var _token = null;
-
-//   void setList(token) async {
-//     var url =
-//         "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}/user.json";
-//     final res = await http.get(Uri.parse(url));
-//     final body = json.decode(res.body);
-//     print(body);
-
-//     setState(() {
-//       if (body['gender'] == 0) {
-//         title = 'أهلا صديقنا';
-//       } else {
-//         title = 'أهلا صديقتنا';
-//       }
-//       name = body['name'];
-//     });
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     getAuthToken().then((value) => setState(() {
-//           _token = value;
-//           setList(_token);
-//         }));
-//   }
-
-//   void Logout() {
-//     final _storage = FlutterSecureStorage();
-//     _storage.deleteAll();
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => const AuthScreen()),
-//     );
-//   }
-
-//   void goToUpdateInfo() {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => const UpdateInfo()),
-//     );
-//   }
-
-//   void goToProgress() {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => ChildProgress()),
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       key: _glogalKey,
-//       drawer: Drawer(
-//         child: ListView(
-//           children: [
-//             const SizedBox(
-//               height: 50,
-//             ),
-//             FlatButton(
-//                 onPressed: () => {goToProgress()},
-//                 child: const Text('تقدم الطفل')),
-//             const SizedBox(),
-//             FlatButton(
-//                 onPressed: () => {goToUpdateInfo()},
-//                 child: const Text('تحديث البيانات')),
-//             const SizedBox(),
-//             FlatButton(
-//                 onPressed: () => {Logout()}, child: const Text('تسجيل خروج')),
-//           ],
-//         ),
-//       ),
-//       backgroundColor: kPrimaryBackgroundColor,
-//       body: Stack(
-//         children: [
-//           Container(
-//             padding:
-//                 const EdgeInsets.only(top: 60, right: 30, left: 30, bottom: 20),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Container(
-//                   child: Row(
-//                     children: [
-//                       IconButton(
-//                         onPressed: () {
-//                           _glogalKey.currentState!.openDrawer();
-//                         },
-//                         icon: Icon(
-//                           Icons.menu,
-//                           size: 40,
-//                           color: Colors.black,
-//                         ),
-//                         padding: const EdgeInsets.all(0),
-//                       ),
-//                       Expanded(child: Container()),
-//                       Container(
-//                         child: CircleAvatar(
-//                           backgroundColor: Colors.black,
-//                           radius: 28,
-//                           child: CircleAvatar(
-//                             backgroundImage:
-//                                 AssetImage('assets/images/boy.jpg'),
-//                             radius: 25,
-//                           ),
-//                         ),
-//                         // child: Image(
-//                         //   image: AssetImage("assets/images/girl.jpg"),
-//                         //   fit: BoxFit.fill,
-//                         // ),
-//                         // decoration: BoxDecoration(
-//                         //   borderRadius: BorderRadius.circular(40),
-//                         // ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 Text(
-//                   title,
-//                   style: TextStyle(
-//                     fontSize: 25,
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(right: 30),
-//                   child: Text(
-//                     name,
-//                     style: TextStyle(
-//                       fontWeight: FontWeight.bold,
-//                       fontSize: 25,
-//                     ),
-//                   ),
-//                 ),
-//                 Container(
-//                   margin: const EdgeInsets.only(top: 30, bottom: 30),
-//                   child: Column(
-//                     children: [
-//                       GestureDetector(
-//                         onTap: () {
-//                           Navigator.push(
-//                             context,
-//                             MaterialPageRoute(
-//                               builder: (context) => NumbersScreen(),
-//                             ),
-//                           );
-//                         },
-//                         child: Container(
-//                           child: Center(
-//                             child: Image.asset(
-//                               "assets/images/Arabic numbers1.png",
-//                             ),
-//                           ),
-//                           height: MediaQuery.of(context).size.height / 4.5,
-//                           width: MediaQuery.of(context).size.width,
-//                           decoration: BoxDecoration(
-//                               borderRadius: BorderRadius.circular(15),
-//                               boxShadow: [
-//                                 BoxShadow(
-//                                   color: Colors.grey.withOpacity(0.5),
-//                                   spreadRadius: 5,
-//                                   blurRadius: 7,
-//                                   offset: Offset(
-//                                       0, 3), // changes position of shadow
-//                                 ),
-//                               ],
-//                               color: Colors.teal[200]),
-//                         ),
-//                       ),
-//                       GestureDetector(
-//                         onTap: () {
-//                           Navigator.push(
-//                             context,
-//                             MaterialPageRoute(
-//                               builder: (context) => LettersScreen(),
-//                             ),
-//                           );
-//                         },
-//                         child: Container(
-//                           child: Image.asset("assets/images/alphabet1.png"),
-//                           margin: const EdgeInsets.only(top: 20),
-//                           height: MediaQuery.of(context).size.height / 4.5,
-//                           width: MediaQuery.of(context).size.width,
-//                           decoration: BoxDecoration(
-//                             borderRadius: BorderRadius.circular(15),
-//                             color: Colors.teal[200],
-//                             boxShadow: [
-//                               BoxShadow(
-//                                 color: Colors.grey.withOpacity(0.5),
-//                                 spreadRadius: 5,
-//                                 blurRadius: 7,
-//                                 offset:
-//                                     Offset(0, 3), // changes position of shadow
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           // SizedBox(
-//           //   height: 70,
-//           // ),
-//           Container(
-//             // color: Colors.black,
-//             margin: const EdgeInsets.only(bottom: 15),
-//             alignment: Alignment.bottomCenter,
-//             child: Image.asset(
-//               "assets/images/61 Children S Day Balloons Children.jpg",
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
