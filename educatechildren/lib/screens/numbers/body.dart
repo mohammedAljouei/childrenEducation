@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
         Center(
           child: Container(
             width: width / 1.2,
-            margin: const EdgeInsets.only(bottom: 200, right: 10, left: 10),
+            margin: const EdgeInsets.only(bottom: 120, right: 10, left: 10),
             child: GridView.count(
               crossAxisCount: 2,
               mainAxisSpacing: 50,
@@ -49,6 +49,17 @@ class Body extends StatelessWidget {
                   ),
               ],
             ),
+          ),
+        ),
+        Positioned(
+          top: 50,
+          left: 5,
+          child: IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ),
       ],

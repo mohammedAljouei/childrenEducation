@@ -44,6 +44,7 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   video_player:
   google_fonts: ^2.3.1
+  flutter_screenutil: ^5.4.0
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@
 import 'package:educatechildren/constants.dart';
 import 'package:educatechildren/screens/letters/letters_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'numbers/numbers_screen.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +28,8 @@ class _homePageState extends State<homePage> {
     return token;
   }
 
+  String imageSelected = '';
+
   String name = '';
   String title = '';
   var _token = null;
@@ -41,8 +44,10 @@ class _homePageState extends State<homePage> {
     setState(() {
       if (body['gender'] == 0) {
         title = 'أهلا صديقنا';
+        imageSelected = "assets/images/boy.jpg";
       } else {
         title = 'أهلا صديقتنا';
+        imageSelected = "assets/images/girl2.jpg";
       }
       name = body['name'];
     });
@@ -98,11 +103,20 @@ class _homePageState extends State<homePage> {
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: kSecondaryColor,
               ),
-              child: Center(child: Text('Drawer Header')),
+              child: Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 80,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(imageSelected),
+                    radius: 75,
+                  ),
+                ),
+              ),
             ),
             ListTile(
               minLeadingWidth: 0,
@@ -152,211 +166,213 @@ class _homePageState extends State<homePage> {
         ),
       ),
       backgroundColor: kPrimaryBackgroundColor,
-      body: Stack(
-        children: [
-          Container(
-            padding:
-                const EdgeInsets.only(top: 60, right: 30, left: 30, bottom: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          _glogalKey.currentState!.openDrawer();
-                        },
-                        icon: const Icon(
-                          Icons.menu,
-                          size: 40,
-                          color: kSecondaryColor,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(
+                  top: 60, right: 30, left: 30, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            _glogalKey.currentState!.openDrawer();
+                          },
+                          icon: const Icon(
+                            Icons.menu,
+                            size: 40,
+                            color: kSecondaryColor,
+                          ),
+                          padding: const EdgeInsets.all(0),
                         ),
-                        padding: const EdgeInsets.all(0),
-                      ),
-                      Expanded(child: Container()),
-                      Container(
-                        child: const CircleAvatar(
-                          backgroundColor: kSecondaryColor,
-                          radius: 28,
+                        Expanded(child: Container()),
+                        Container(
                           child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/images/boy.jpg'),
-                            radius: 25,
+                            backgroundColor: kSecondaryColor,
+                            radius: 28,
+                            child: CircleAvatar(
+                              backgroundImage: AssetImage(imageSelected),
+                              radius: 25,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  title,
-                  style: GoogleFonts.elMessiri(
-                      textStyle: const TextStyle(
-                        color: Colors.black,
-                      ),
-                      fontSize: 30),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: Text(
-                    name,
+                  Text(
+                    title,
                     style: GoogleFonts.elMessiri(
                         textStyle: const TextStyle(
                           color: Colors.black,
                         ),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
+                        fontSize: 30),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10, bottom: 30),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NumbersScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                transform: Matrix4.rotationZ(-0.1),
-                                child: Image.asset(
-                                  "assets/images/numbers/Arabic_numbers_3.png",
-                                  scale: 3.7,
-                                ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: Text(
+                      name,
+                      style: GoogleFonts.elMessiri(
+                          textStyle: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10, bottom: 30),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const NumbersScreen(),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 9),
-                                padding: const EdgeInsets.all(40),
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color.fromARGB(
-                                                255, 114, 114, 114)
-                                            .withOpacity(0.5),
-                                        spreadRadius: 10,
-                                        blurRadius: 10,
-                                      ),
-                                    ],
-                                    shape: BoxShape.circle,
-                                    color: const Color(0xffedae49)),
-                                child: Text(
-                                  "الارقام",
-                                  style: GoogleFonts.lemonada(
-                                    fontSize: 25,
+                            );
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  transform: Matrix4.rotationZ(-0.1),
+                                  child: Image.asset(
+                                    "assets/images/numbers/Arabic_numbers_3.png",
+                                    scale: 3.7,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          height: height / 4.5,
-                          width: width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                              color: kSecondaryColor),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height / 40,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LettersScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 9),
-                                padding: const EdgeInsets.all(40),
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: const Color.fromARGB(
-                                                255, 114, 114, 114)
-                                            .withOpacity(0.5),
-                                        spreadRadius: 10,
-                                        blurRadius: 10,
-                                      ),
-                                    ],
-                                    shape: BoxShape.circle,
-                                    color: const Color(0xffd1495b)),
-                                child: Text(
-                                  "الحروف",
-                                  style: GoogleFonts.lemonada(
-                                    fontSize: 25,
+                                Container(
+                                  margin: const EdgeInsets.only(left: 9),
+                                  padding: const EdgeInsets.all(40),
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: const Color.fromARGB(
+                                                  255, 114, 114, 114)
+                                              .withOpacity(0.5),
+                                          spreadRadius: 10,
+                                          blurRadius: 10,
+                                        ),
+                                      ],
+                                      shape: BoxShape.circle,
+                                      color: const Color(0xffedae49)),
+                                  child: Text(
+                                    "الارقام",
+                                    style: GoogleFonts.lemonada(
+                                      fontSize: 25,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                transform: Matrix4.rotationZ(-0.1),
-                                child: Image.asset(
-                                  "assets/images/alphabet/arabic alphabets continued_رمان ملون.png",
-                                  scale: 3.7,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
+                            height: height / 4.5,
+                            width: width,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: kSecondaryColor),
                           ),
-                          height: height / 4.5,
-                          width: width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
+                        ),
+                        SizedBox(
+                          height: height / 40,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LettersScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 9),
+                                  padding: const EdgeInsets.all(40),
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: const Color.fromARGB(
+                                                  255, 114, 114, 114)
+                                              .withOpacity(0.5),
+                                          spreadRadius: 10,
+                                          blurRadius: 10,
+                                        ),
+                                      ],
+                                      shape: BoxShape.circle,
+                                      color: const Color(0xffd1495b)),
+                                  child: Text(
+                                    "الحروف",
+                                    style: GoogleFonts.lemonada(
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  transform: Matrix4.rotationZ(-0.1),
+                                  child: Image.asset(
+                                    "assets/images/alphabet/arabic alphabets continued_رمان ملون.png",
+                                    scale: 3.7,
+                                  ),
                                 ),
                               ],
-                              color: kSecondaryColor),
+                            ),
+                            height: height / 4.5,
+                            width: width,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                                color: kSecondaryColor),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          // SizedBox(
-          //   height: 70,
-          // ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15),
-            width: width,
-            alignment: Alignment.bottomCenter,
-            child: Image.asset(
-              "assets/images/61 Children S Day Balloons Children.jpg",
-              fit: BoxFit.cover,
-            ),
-          )
-        ],
+            // SizedBox(
+            //   height: 70,
+            // ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              width: width,
+              alignment: Alignment.bottomCenter,
+              child: Image.asset(
+                "assets/images/61 Children S Day Balloons Children.jpg",
+                fit: BoxFit.cover,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
