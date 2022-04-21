@@ -110,10 +110,10 @@ class _homePageState extends State<homePage> {
               child: Center(
                 child: CircleAvatar(
                   backgroundColor: Colors.black,
-                  radius: 80,
+                  radius: 90,
                   child: CircleAvatar(
                     backgroundImage: AssetImage(imageSelected),
-                    radius: 75,
+                    radius: 70,
                   ),
                 ),
               ),

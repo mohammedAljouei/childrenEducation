@@ -106,10 +106,24 @@ class _ChildFlowState extends State<ChildFlow> {
       // ValidateWriting(id, handleNextButton, decreaseIndex),
       ValidatePronunciation(id, handleNextButton),
       Quiz(currentIndex: id, increaseOrginIndex: handleNextButton),
-      RaisedButton(
+      ElevatedButton(
         onPressed: handleSuccessPerformance,
-        color: kPrimaryColor,
-        textColor: Colors.white,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            // If the button is pressed, return green, otherwise blue
+            if (states.contains(MaterialState.pressed)) {
+              return Colors.green;
+            }
+            return Colors.blue;
+          }),
+          textStyle: MaterialStateProperty.resolveWith((states) {
+            // If the button is pressed, return size 40, otherwise 20
+            if (states.contains(MaterialState.pressed)) {
+              return TextStyle(fontSize: 40);
+            }
+            return TextStyle(fontSize: 20);
+          }),
+        ),
         child: const Text('مرحى! لقد تعلمت الحرف'),
       )
     ];
@@ -141,17 +155,49 @@ class _ChildFlowState extends State<ChildFlow> {
               child:
                   // if you use a real device "not simulator" insted of 2 put 3 and 3 put 2
                   index == 2
-                      ? FlatButton(
-                          color: kPrimaryColor,
-                          textColor: Colors.white,
+                      ? ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith((states) {
+                              // If the button is pressed, return green, otherwise blue
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.green;
+                              }
+                              return Colors.blue;
+                            }),
+                            textStyle:
+                                MaterialStateProperty.resolveWith((states) {
+                              // If the button is pressed, return size 40, otherwise 20
+                              if (states.contains(MaterialState.pressed)) {
+                                return TextStyle(fontSize: 40);
+                              }
+                              return TextStyle(fontSize: 20);
+                            }),
+                          ),
                           child: const Text('تخطي'),
                           onPressed: () => {handleNextButton()},
                         )
                       : index == 3 || index == 4 || index == list.length - 1
                           ? const Text('')
-                          : FlatButton(
-                              color: kPrimaryColor,
-                              textColor: Colors.white,
+                          : ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith((states) {
+                                  // If the button is pressed, return green, otherwise blue
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.green;
+                                  }
+                                  return Colors.blue;
+                                }),
+                                textStyle:
+                                    MaterialStateProperty.resolveWith((states) {
+                                  // If the button is pressed, return size 40, otherwise 20
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return TextStyle(fontSize: 40);
+                                  }
+                                  return TextStyle(fontSize: 20);
+                                }),
+                              ),
                               child: const Text('التالي'),
                               onPressed: () => {handleNextButton()},
                             ),

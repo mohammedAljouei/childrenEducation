@@ -9,7 +9,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../Widgets/border_text_field.dart';
 import '../Widgets/try and vaildate/TryToWrite.dart';
 
 class UpdateInfo extends StatefulWidget {

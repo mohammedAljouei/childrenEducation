@@ -217,17 +217,46 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
           )
         : _good
             // ignore: deprecated_member_use
-            ? RaisedButton(
+            ? ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    // If the button is pressed, return green, otherwise blue
+                    if (states.contains(MaterialState.pressed)) {
+                      return Colors.green;
+                    }
+                    return Colors.blue;
+                  }),
+                  textStyle: MaterialStateProperty.resolveWith((states) {
+                    // If the button is pressed, return size 40, otherwise 20
+                    if (states.contains(MaterialState.pressed)) {
+                      return TextStyle(fontSize: 40);
+                    }
+                    return TextStyle(fontSize: 20);
+                  }),
+                ),
                 onPressed: increaseOrginIndex,
-                color: kPrimaryColor,
-                textColor: Colors.white,
                 child: const Text('لننطق الحرف'),
               )
             : _bad
-                ? RaisedButton(
+                ? ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith((states) {
+                        // If the button is pressed, return green, otherwise blue
+                        if (states.contains(MaterialState.pressed)) {
+                          return Colors.green;
+                        }
+                        return Colors.blue;
+                      }),
+                      textStyle: MaterialStateProperty.resolveWith((states) {
+                        // If the button is pressed, return size 40, otherwise 20
+                        if (states.contains(MaterialState.pressed)) {
+                          return TextStyle(fontSize: 40);
+                        }
+                        return TextStyle(fontSize: 20);
+                      }),
+                    ),
                     onPressed: decreaseOrginIndex,
-                    color: kPrimaryColor,
-                    textColor: Colors.white,
                     child: const Text('حاول مرة أخرى'),
                   )
                 : Stack(
