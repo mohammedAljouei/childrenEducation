@@ -62,12 +62,27 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       doneNumList = doneNum.split('/');
       doneLetList = doneLet.split('/');
 
+      animationController1 = AnimationController(
+        vsync: this,
+        // duration: Duration(seconds: 1),
+        // lowerBound: doneLetList.length / 26,
+
+        value: doneNumList.length / 10,
+      );
+      print(doneLetList.length);
+      animationController1.addListener(() {
+        setState(() {
+          // animationController.value = doneLetList.length / 26;
+        });
+      });
+
       print(doneLetList.length);
       print(doneNumList.length);
     });
   }
 
   late AnimationController animationController;
+  late AnimationController animationController1;
 
   @override
   void initState() {
@@ -75,17 +90,22 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           _token = value;
           setList(_token);
         }));
+
     animationController = AnimationController(
-        vsync: this,
-        // duration: Duration(seconds: 20),
-        lowerBound: 0,
-        upperBound: 26,
-        value: doneLetList.length * 1.0);
+      vsync: this,
+      // duration: Duration(seconds: 1),
+      // lowerBound: doneLetList.length / 26,
+
+      value: doneLetList.length / 26,
+    );
+    print(doneLetList.length);
     animationController.addListener(() {
-      setState(() {});
+      setState(() {
+        // animationController.value = doneLetList.length / 26;
+      });
     });
 
-    animationController.repeat();
+    // animationController.repeat();
     super.initState();
     // getAuthToken().then((value) => setState(() {
     //       _token = value;
@@ -100,7 +120,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     final deviceSize = MediaQuery.of(context).size;
     final percentage = (animationController.value * 26) / 100;
 
-    return doneNumList.isEmpty && doneLetList.isEmpty
+    return doneNumList.isEmpty &&
+            doneLetList.isEmpty &&
+            animationController.value == 0.0
         ? Center(
             child: SizedBox(
               child: CircularProgressIndicator(
@@ -131,7 +153,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 //   ),
                 // ),
               ),
-              body: ListView(
+              body: Column(
                 children: [
                   Container(
                     padding: EdgeInsets.all(10),
@@ -162,262 +184,261 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                     ),
                   ),
                   Container(
-                    height: deviceSize.height,
+                    height: deviceSize.height / 1.35,
                     decoration: BoxDecoration(
                       color: kPrimaryBackgroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40.0),
                         topRight: Radius.circular(40.0),
+                        bottomLeft: Radius.circular(40.0),
+                        bottomRight: Radius.circular(40.0),
                       ),
                     ),
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 50),
+                          margin: const EdgeInsets.only(top: 20),
                           width: deviceSize.width,
-                          height: deviceSize.height / 6,
+                          // alignment: Alignment.bottomCenter,
+                          child: Image.asset(
+                            "assets/images/progressImage-removebg-preview.png",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 0),
+                          width: deviceSize.width,
+                          height: deviceSize.height / 4.5,
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             color: Color.fromARGB(77, 209, 73, 91),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: deviceSize.height / 25,
-                                  margin: EdgeInsets.only(top: 40),
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 25.0),
-                                  child: LiquidLinearProgressIndicator(
-                                    borderRadius: 3.0,
-                                    // borderWidth: 25.0,
-                                    // borderColor: kPrimaryBackgroundColor,
-                                    value: animationController.value / 100,
-                                    valueColor: AlwaysStoppedAnimation(
-                                        Color.fromARGB(223, 209, 73, 91)),
-                                    center: Text(
-                                      '${percentage.toStringAsFixed(0)}%',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(210, 53, 13, 18),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10, right: 20),
+                                width: deviceSize.width,
+                                child: Text(
+                                  ":الحروف",
+                                  textAlign: TextAlign.end,
+                                  style: GoogleFonts.elMessiri(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic,
+                                      decoration: TextDecoration.underline),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 0, right: 20),
+                                width: deviceSize.width,
+                                child: RichText(
+                                  textDirection: TextDirection.rtl,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'أكملت ',
+                                        style: GoogleFonts.cairo(
+                                            fontSize: 15, color: Colors.black),
                                       ),
-                                    ),
-                                    direction: Axis.horizontal,
-                                    backgroundColor:
-                                        Color.fromARGB(97, 171, 88, 99),
+                                      TextSpan(
+                                        text: '${doneLetList.length}',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                        text: ' أحرف من اصل 26',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15, color: Colors.black),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        top: 10, right: 30, left: 30, bottom: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(child: Container()),
-                            const CircleAvatar(
-                              backgroundColor: Colors.black,
-                              radius: 28,
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/images/boy.jpg'),
-                                radius: 25,
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin: EdgeInsets.only(top: 0, right: 20),
+                                width: deviceSize.width,
+                                child: RichText(
+                                  textDirection: TextDirection.rtl,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'الحرف القادم: حرف ',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15, color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            'ال${nameOfLetters[doneLetList.length]}',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: deviceSize.height / 25,
+                                margin: EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                                child: LiquidLinearProgressIndicator(
+                                  borderRadius: 3.0,
+                                  borderWidth: 2.0,
+                                  borderColor: Colors.black,
+                                  value: animationController.value,
+                                  valueColor: AlwaysStoppedAnimation(
+                                      Color.fromARGB(223, 209, 73, 91)),
+                                  center: Text(
+                                    '${(doneLetList.length * 100 / 26).round()}%',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(210, 53, 13, 18),
+                                    ),
+                                  ),
+                                  direction: Axis.horizontal,
+                                  backgroundColor:
+                                      Color.fromARGB(97, 171, 88, 99),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: deviceSize.height / 40,
                         ),
                         Container(
-                          margin: const EdgeInsets.only(
-                            top: 10,
+                          margin: const EdgeInsets.only(top: 20),
+                          width: deviceSize.width,
+                          alignment: Alignment.bottomCenter,
+                          child: Image.asset(
+                            "assets/images/progressImage-removebg-preview.png",
+                            fit: BoxFit.cover,
                           ),
-                          child: Column(children: <Widget>[
-                            SizedBox(
-                              height: 10.0,
-                              width: 150.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'الــحروف',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 0),
+                          width: deviceSize.width,
+                          height: deviceSize.height / 4.5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Color.fromARGB(92, 237, 174, 73),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10, right: 20),
+                                width: deviceSize.width,
+                                child: Text(
+                                  ":الأرقام",
+                                  textAlign: TextAlign.end,
+                                  style: GoogleFonts.elMessiri(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic,
+                                      decoration: TextDecoration.underline),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                              width: 150.0,
-                            ),
-                            doneLetList.length == 1 && doneLetList[0] == ''
-                                ? Padding(
-                                    padding: const EdgeInsets.only(right: 30),
-                                    child: Text(
-                                      'لم يتعلم طفلك اي حرف',
-                                      style: TextStyle(
-                                        // fontWeight: FontWeight.bold,
-                                        fontSize: 25,
+                              Container(
+                                margin: EdgeInsets.only(top: 0, right: 20),
+                                width: deviceSize.width,
+                                child: RichText(
+                                  textDirection: TextDirection.rtl,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'أكملت ',
+                                        style: GoogleFonts.cairo(
+                                            fontSize: 15, color: Colors.black),
                                       ),
-                                    ),
-                                  )
-                                : Center(
-                                    child: SizedBox(
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 20,
-                                        value: doneLetList.length / 26,
-                                        backgroundColor: Colors.grey,
-                                        valueColor: AlwaysStoppedAnimation(
-                                            kPrimaryColor),
+                                      TextSpan(
+                                        text: '${doneNumList.length}',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
                                       ),
-                                      height: 150.0,
-                                      width: 150.0,
-                                    ),
+                                      TextSpan(
+                                        text: ' أرقام من اصل 9',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15, color: Colors.black),
+                                      ),
+                                    ],
                                   ),
-                            SizedBox(
-                              height: 15.0,
-                              width: 150.0,
-                            ),
-                            doneLetList.length == 2 && doneLetList[1] != ''
-                                ? Padding(
-                                    padding: const EdgeInsets.only(right: 30),
-                                    child: Text(
-                                      'تعلم طفلك حرف الالف',
-                                      style: TextStyle(
-                                        // fontWeight: FontWeight.bold,
-                                        fontSize: 25,
-                                      ),
-                                    ),
-                                  )
-                                : doneLetList.length == 1
-                                    ? Text('')
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 30),
-                                        child: Text(
-                                          'تعلم طفلك من حرف الالف الى حرف الـ ${doneLetList[doneLetList.length - 1]}',
-                                          style: TextStyle(
-                                            // fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
-                                        ),
-                                      ),
-                            SizedBox(
-                              height: 50.0,
-                              width: 150.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Text(
-                                'الأرقام',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                              width: 150.0,
-                            ),
-                            doneNumList.length == 1 && doneNumList[0] == ''
-                                ? Padding(
-                                    padding: const EdgeInsets.only(right: 30),
-                                    child: Text(
-                                      'لم يتعلم طفلك اي رقم',
-                                      style: TextStyle(
-                                        // fontWeight: FontWeight.bold,
-                                        fontSize: 25,
+                              Container(
+                                margin: EdgeInsets.only(top: 0, right: 20),
+                                width: deviceSize.width,
+                                child: RichText(
+                                  textDirection: TextDirection.rtl,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'الرقم القادم: رقم ',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15, color: Colors.black),
                                       ),
-                                    ),
-                                  )
-                                : Center(
-                                    child: SizedBox(
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 20,
-                                        value: doneLetList.length / 10,
-                                        backgroundColor: Colors.grey,
-                                        valueColor: AlwaysStoppedAnimation(
-                                            kPrimaryColor),
+                                      TextSpan(
+                                        text:
+                                            '${nameOfNumbers[doneNumList.length]}',
+                                        style: GoogleFonts.elMessiri(
+                                            fontSize: 15,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
                                       ),
-                                      height: 150.0,
-                                      width: 150.0,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: deviceSize.height / 25,
+                                margin: EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                                child: LiquidLinearProgressIndicator(
+                                  borderRadius: 3.0,
+                                  borderWidth: 2.0,
+                                  borderColor: Colors.black,
+                                  // value: animationController1.value,
+                                  valueColor: AlwaysStoppedAnimation(
+                                      Color.fromARGB(209, 227, 156, 43)),
+                                  center: Text(
+                                    '${(doneLetList.length * 100 / 26).round()}%',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 77, 54, 17),
                                     ),
                                   ),
-                            SizedBox(
-                              height: 15.0,
-                              width: 150.0,
-                            ),
-                            doneNumList.length == 1 && doneNumList[0] == ''
-                                ? Text('')
-                                : doneNumList.length == 2 &&
-                                        doneNumList[1] != ''
-                                    ? Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 30),
-                                        child: Text(
-                                          'تعلم طفلك رقم صفر',
-                                          style: TextStyle(
-                                            // fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
-                                        ),
-                                      )
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 30),
-                                        child: Text(
-                                          'تعلم طفلك من رقم صفر الى رقم ${doneNumList[doneNumList.length - 1]}',
-                                          style: TextStyle(
-                                            // fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
-                                        ),
-                                      ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              // color: Colors.black,
-                              margin: const EdgeInsets.only(bottom: 15),
-                              alignment: Alignment.bottomCenter,
-                              child: Image.asset(
-                                "assets/images/61 Children S Day Balloons Children.jpg",
+                                  direction: Axis.horizontal,
+                                  backgroundColor:
+                                      Color.fromARGB(122, 237, 174, 73),
+                                ),
                               ),
-                            ),
-                          ]),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 70,
-                  // ),
                 ],
               ),
             ));
-
-    Path _buildHeartPath() {
-      return Path()
-        ..moveTo(55, 15)
-        ..cubicTo(55, 12, 50, 0, 30, 0)
-        ..cubicTo(0, 0, 0, 37.5, 0, 37.5)
-        ..cubicTo(0, 55, 20, 77, 55, 95)
-        ..cubicTo(90, 77, 110, 55, 110, 37.5)
-        ..cubicTo(110, 37.5, 110, 0, 80, 0)
-        ..cubicTo(65, 0, 55, 12, 55, 15)
-        ..close();
-    }
   }
 }

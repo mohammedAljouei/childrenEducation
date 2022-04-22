@@ -4,6 +4,10 @@ const kPrimaryColor = Color(0xFF6F35A5);
 const kPrimaryBackgroundColor = Color(0xFFfbf5f1);
 const kSecondaryColor = Color(0xFF70a288);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
+
+const Color primaryColor = Color.fromRGBO(17, 82, 253, 1);
+const Color blackColor = Color.fromRGBO(38, 42, 46, 1);
+
 const List<String> lettersNumbersimagesUrls = [
   "assets/images/numbers/Arabic_numbers_0.png",
   "assets/images/numbers/Arabic_numbers_1.png",

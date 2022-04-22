@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:educatechildren/screens/HomeScreen.dart';
+import 'package:educatechildren/screens/authentication.dart';
 import 'package:flutter/material.dart';
 import 'screens/Auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => Directionality(
               textDirection: TextDirection.rtl, // عربي
-              child: _token == null ? AuthScreen() : TabsScreen(),
+              child: _token == null ? Authentication() : TabsScreen(),
             ),
         '/home': (context) => Directionality(
               // add this
