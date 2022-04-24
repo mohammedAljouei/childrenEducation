@@ -73,8 +73,8 @@ class _QuizState extends State<Quiz> {
           Container(
             // color: Colors.red,
             //margin have to be removed
-            margin: const EdgeInsets.only(top: 100),
-            height: height / 3,
+            // margin: const EdgeInsets.only(top: 100),
+            height: height / 4,
             width: width / 1.1,
             decoration: BoxDecoration(
               border: Border.all(width: 2),
@@ -111,7 +111,7 @@ class _QuizState extends State<Quiz> {
           ),
           // Text('result ${insideTarget}'),
           SizedBox(
-            height: height / 7,
+            height: height / 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

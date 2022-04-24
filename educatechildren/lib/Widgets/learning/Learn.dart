@@ -69,23 +69,26 @@ class LearnState extends State<Learn> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      height: 500,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: _controller.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  )
-                : Container(),
-          ),
-          FloatingActionButton(
-            backgroundColor: kPrimaryColor,
+    return Column(
+      children: [
+        _controller.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
+                    child: VideoPlayer(_controller)),
+              )
+            : Container(),
+        Spacer(),
+        // SizedBox(
+        //   height: 20,
+        // ),
+        Container(
+          margin: EdgeInsets.only(bottom: 40),
+          child: FloatingActionButton(
+            backgroundColor: kSecondaryColor,
             onPressed: () {
               setState(() {
                 _controller.value.isPlaying
@@ -97,8 +100,8 @@ class LearnState extends State<Learn> {
               _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

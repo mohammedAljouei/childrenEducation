@@ -129,25 +129,23 @@ class _SpeechScreenState extends State<SpeechScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 100, right: 50, left: 50),
-          padding: const EdgeInsets.only(bottom: 15),
-          child: GestureDetector(
-            child: Image.asset(
-              charsUrls[charId],
-              fit: BoxFit.cover,
-              alignment: Alignment(0, -1),
-            ),
+          // margin: const EdgeInsets.only(top: 100, right: 50, left: 50),
+          // padding: const EdgeInsets.only(bottom: 15),
+          child: Image.asset(
+            charsUrls[charId],
+            fit: BoxFit.fitWidth,
+            alignment: Alignment(0, -1),
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(
-            top: 400,
-            left: 10,
-          ),
-          padding: const EdgeInsets.only(bottom: 15),
+          // margin: const EdgeInsets.only(
+          //   top: 400,
+          //   left: 10,
+          // ),
+          // padding: const EdgeInsets.only(bottom: 15),
           child: AvatarGlow(
             animate: _isListening,
             glowColor: Theme.of(context).primaryColor,
@@ -160,7 +158,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
               child: Icon(
                 _isListening ? Icons.mic : Icons.mic_none,
               ),
-              backgroundColor: kPrimaryColor,
+              backgroundColor: kSecondaryColor,
             ),
           ),
         )

@@ -1,9 +1,12 @@
 // ignore_for_file: unused_field
 //ignore_for_file: file_names, prefer_const_constructors_in_immutables
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../Widgets/input_text_field.dart';
 import '../constants.dart';
 
 enum AuthMode { Signup, Login }
@@ -19,46 +22,23 @@ class AuthScreen extends StatelessWidget {
     AuthMode _authMode = AuthMode.Login;
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: kPrimaryBackgroundColor,
         body: Directionality(
-      textDirection: TextDirection.rtl, // عربي
-      child: Stack(
-        children: <Widget>[
-          Image.asset(
-            "assets/images/backgroud_letters.png",
-            fit: BoxFit.fill,
-            height: double.infinity,
-            width: double.infinity,
-            alignment: Alignment.center,
-          ),
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
+          textDirection: TextDirection.rtl, // عربي
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                "assets/images/authentication.png",
+                fit: BoxFit.contain,
+                height: double.infinity,
+                width: double.infinity,
+                alignment: Alignment.bottomCenter,
               ),
-            ),
+              AuthCard(),
+            ],
           ),
-          SingleChildScrollView(
-            child: Container(
-              height: deviceSize.height,
-              width: deviceSize.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Flexible(
-                    flex: deviceSize.width > 600 ? 2 : 1,
-                    child: AuthCard(),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 }
 
@@ -71,16 +51,10 @@ class _AuthCardState extends State<AuthCard> {
   String dropdownValue = 'ذكر';
 
   final IconData icon = Icons.person;
-  // late final ValueChanged<String> onChanged =  () => ('a'){};
   String errorMessage = '';
   final _storage = FlutterSecureStorage();
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
-
-  // _AuthCardState({
-  //   this.icon = Icons.person,
-  //   this.onChanged,
-  // });
 
   final Map<String, String> _authData = {
     'email': '',
@@ -88,6 +62,7 @@ class _AuthCardState extends State<AuthCard> {
   };
   var _isLoading = false;
   final _passwordController = TextEditingController();
+  final _password2Controller = TextEditingController();
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
 
@@ -156,6 +131,9 @@ class _AuthCardState extends State<AuthCard> {
 
       final body = json.decode(res.body);
       final id = body['localId'];
+      if (_passwordController.text != _password2Controller) {
+        errorMessage = 'كلمة المرور غير متطابقة';
+      }
       if (id == null) {
         errorMessage = '';
         if (body['error']['message'] == 'INVALID_EMAIL') {
@@ -194,108 +172,83 @@ class _AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    return Stack(children: <Widget>[
-      Align(
-        alignment: Alignment(0, -0.85),
-        child: Text(
+    return Container(
+      padding: EdgeInsets.only(top: 80),
+      child: Column(children: [
+        Text(
           _authMode == AuthMode.Login ? 'تسجيل دخول' : 'تسجيل جديد',
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: GoogleFonts.elMessiri(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              // decoration: TextDecoration.underline,
+              color: kSecondaryColor),
         ),
-      ),
-      Container(
-        alignment: Alignment(0, 0.25),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
+        SizedBox(
+          height: deviceSize.height / 25,
+        ),
+        Container(
+          // height: deviceSize.height / 10,
+          // margin: EdgeInsets.symmetric(horizontal: 20),
+          // decoration: BoxDecoration(
+          //     color: Color.fromARGB(255, 255, 255, 255),
+          //     borderRadius: BorderRadius.all(Radius.circular(30)),
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: Color.fromARGB(255, 163, 163, 163).withOpacity(0.5),
+          //         spreadRadius: 3,
+          //         blurRadius: 10,
+          //       ),
+          //     ]),
+          // alignment: Alignment(0, 0),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          child: Form(
+            key: _formKey,
             child: Column(
               children: <Widget>[
-                Text(
-                  errorMessage == null ? '' : "*$errorMessage",
-                  style: TextStyle(
-                    color: Colors.red.shade900,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  width: deviceSize.width,
+                  child: Text(
+                    errorMessage == "" ? '' : "*$errorMessage",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.red.shade900,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                TextField(
+                InputTextField(
+                  label: "بريدك الالكتروني",
                   controller: _emailController,
-                  // onChanged: onChanged,
-                  // cursorColor: kPrimaryColor,
-                  decoration: InputDecoration(
-                    icon: Icon(
-                      icon,
-                      // color: kPrimaryColor,
-                    ),
-                    hintText: "بريدك الالكتروني",
-                    border: InputBorder.none,
-                  ),
+                  icon: Icon(Icons.email_outlined),
                 ),
                 if (_authMode == AuthMode.Signup)
-                  TextField(
-                    enabled: _authMode == AuthMode.Signup,
+                  InputTextField(
+                    label: "الاسم",
                     controller: _nameController,
-                    // onChanged: onChanged,
-                    // cursorColor: kPrimaryColor,
-                    decoration: InputDecoration(
-                      icon: Icon(
-                        icon,
-                        // color: kPrimaryColor,
-                      ),
-                      hintText: "الاسم",
-                      border: InputBorder.none,
-                    ),
+                    icon: Icon(Icons.person_outline),
                   ),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  // onChanged: onChanged,
-                  // cursorColor: kPrimaryColor,
-                  decoration: const InputDecoration(
-                    hintText: "كلمة المرور",
-                    icon: Icon(
-                      Icons.lock,
-                      // color: kPrimaryColor,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.visibility,
-                      // color: kPrimaryColor,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
+                InputTextField(
+                    label: "كلمة المرور",
+                    controller: _passwordController,
+                    icon: Icon(Icons.lock_outlined),
+                    password: true),
                 if (_authMode == AuthMode.Signup)
-                  TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
-                    obscureText: true,
-                    validator: _authMode == AuthMode.Signup
-                        ? (value) {
-                            if (value != _passwordController.text) {
-                              return 'كلمة المرور غير متطابقة';
-                            }
-                          }
-                        : null,
-                    // cursorColor: kPrimaryColor,
-                    decoration: const InputDecoration(
-                      hintText: "تأكيد كلمة المرور",
-                      icon: Icon(
-                        Icons.lock,
-                        // color: kPrimaryColor,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        // color: kPrimaryColor,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                  ),
+                  InputTextField(
+                      label: "تأكيد كلمة المرور",
+                      controller: _password2Controller,
+                      icon: Icon(Icons.lock_outlined),
+                      password: true),
                 if (_authMode == AuthMode.Signup)
                   DropdownButton<String>(
                       value: dropdownValue,
                       icon: const Icon(Icons.arrow_downward),
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
+                      // style: const TextStyle(color: ),
+                      iconSize: 15,
                       underline: Container(
                         height: 2,
-                        color: Colors.deepPurpleAccent,
+                        color: kSecondaryColor,
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
@@ -309,69 +262,70 @@ class _AuthCardState extends State<AuthCard> {
                           child: Text(value),
                         );
                       }).toList()),
-                if (_isLoading)
-                  CircularProgressIndicator()
-                else
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          width: deviceSize.width * 0.8,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(29),
-                            child: ElevatedButton(
-                              child: Text(
-                                _authMode == AuthMode.Login
-                                    ? 'تسجل دخول'
-                                    : 'تسجيل جديد',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: _submit,
-                              style: ElevatedButton.styleFrom(
-                                  primary: kPrimaryColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 20),
-                                  textStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500)),
+                // if (_isLoading)
+                //   CircularProgressIndicator()
+                // else
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        width: deviceSize.width * 0.8,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(29),
+                          child: ElevatedButton(
+                            child: Text(
+                              _authMode == AuthMode.Login
+                                  ? 'تسجل دخول'
+                                  : 'تسجيل جديد',
+                              style: GoogleFonts.elMessiri(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
                             ),
+                            onPressed: _submit,
+                            style: ElevatedButton.styleFrom(
+                                primary: kSecondaryColor,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 20),
+                                textStyle: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500)),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            _authMode == AuthMode.Login
+                                ? "ليس لديك حساب؟ "
+                                : "لديك حساب مسبقا؟ ",
+                            style: GoogleFonts.elMessiri(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          GestureDetector(
+                            onTap: _switchAuthMode,
+                            child: Text(
                               _authMode == AuthMode.Login
-                                  ? "ليس لديك حساب؟ "
-                                  : "لديك حساب مسبقا؟ ",
-                              style: const TextStyle(
-                                  // color: kPrimaryColor
-                                  ),
+                                  ? "تسجيل جديد"
+                                  : "تسجيل دخول",
+                              style: GoogleFonts.elMessiri(
+                                  fontSize: 15,
+                                  color: kSecondaryColor,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            GestureDetector(
-                              onTap: _switchAuthMode,
-                              child: Text(
-                                _authMode == AuthMode.Login
-                                    ? "تسجيل جديد"
-                                    : "تسجيل دخول",
-                                style: const TextStyle(
-                                  // color: kPrimaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
+                ),
               ],
             ),
           ),
-        ),
-      )
-    ]);
+        )
+      ]),
+    );
   }
 }

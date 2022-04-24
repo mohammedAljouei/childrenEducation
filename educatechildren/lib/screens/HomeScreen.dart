@@ -58,7 +58,7 @@ class _homePageState extends State<homePage> {
     _storage.deleteAll();
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const AuthScreen()),
+      MaterialPageRoute(builder: (context) => AuthScreen()),
     );
   }
 
@@ -367,7 +367,7 @@ class _homePageState extends State<homePage> {
               width: width,
               alignment: Alignment.bottomCenter,
               child: Image.asset(
-                "assets/images/61 Children S Day Balloons Children.jpg",
+                "assets/images/61_Children_S_Day_Balloons_Children-re.png",
                 fit: BoxFit.cover,
               ),
             )
