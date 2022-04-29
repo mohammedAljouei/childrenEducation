@@ -32,9 +32,6 @@ class _SpeechScreenState extends State<SpeechScreen> {
   final void Function()? increaseOrginIndex;
   _SpeechScreenState(this.charId, this.increaseOrginIndex);
 
-// if the child try two times but he can not pronunciate correct then maybe the child has a problem with pronunciation skip him.
-  int numberOfBadResulte = 0;
-
   List<String> chars = [
     "صفر",
     "واحد",
@@ -48,15 +45,15 @@ class _SpeechScreenState extends State<SpeechScreen> {
     "تسعة",
     "1000",
     "با",
-    "تاء",
-    "ث",
+    "متى",
+    " ث",
     "جيم",
     "حأ",
     "خاء",
     "دال",
-    "ذال",
+    "ذ",
     "ر",
-    "ز",
+    "إزاي",
     "سين",
     "شين",
     "صاد",
@@ -73,7 +70,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
     "نون",
     "هاء",
     "واو",
-    "ياء",
+    "يا",
   ];
 
   List<String> charsUrls = [
@@ -187,15 +184,12 @@ class _SpeechScreenState extends State<SpeechScreen> {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
 
   void _listen() async {
-    if (numberOfBadResulte >= 4) {
-      increaseOrginIndex!();
-    }
     if (!_isListening) {
       bool available = await _speech.initialize(
         onStatus: (val) => print(val),
@@ -214,23 +208,21 @@ class _SpeechScreenState extends State<SpeechScreen> {
             _text = val.recognizedWords;
             var arr = _text.codeUnits;
             var arr2 = chars[charId].codeUnits;
-
+            print(_text);
             print(arr);
             print(chars[charId].codeUnits);
 
             //val.recognizedWords.codeUnits[1] == char.codeUnits[0]
             // newText == chars[charId] || _text == chars[charId]
 
-            if (arr[1] == arr2[0] || arr[2] == arr2[1]) {
-              increaseOrginIndex!();
-              print('good');
-
+            if (arr[1] == arr2[0]) {
               setState(() => _isListening = false);
               _speech.stop();
+              once();
+              print('good');
             } else {
               setState(() => _isListening = false);
               _speech.stop();
-              numberOfBadResulte++;
             }
 
             if (val.hasConfidenceRating && val.confidence > 0) {
@@ -243,6 +235,15 @@ class _SpeechScreenState extends State<SpeechScreen> {
     } else {
       setState(() => _isListening = false);
       _speech.stop();
+    }
+  }
+
+  int check = 0;
+
+  void once() {
+    if (check < 2) {
+      increaseOrginIndex!();
+      check++;
     }
   }
 }

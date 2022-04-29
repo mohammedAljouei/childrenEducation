@@ -32,16 +32,12 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
 
   _ImagePainterExampleState(
       this.charId, this.increaseOrginIndex, this.decreaseOrginIndex);
+
   var isItDone = false;
-  var _good = false;
-  var _bad = false;
   var _resulte = '';
   var url = '';
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
 
   final _imageKey = GlobalKey<ImagePainterState>();
-  final _key = GlobalKey<ScaffoldState>();
 
   upload(File imageFile, String nameOfFile) async {
     // open a bytestream
@@ -106,28 +102,6 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
     print(nameOfFile);
 
     upload(imgFile, nameOfFile);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.grey[700],
-        padding: const EdgeInsets.only(left: 10),
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text("", style: TextStyle(color: Colors.white)),
-            TextButton(
-              onPressed: () => OpenFile.open("$fullPath"),
-              child: Text(
-                "Open",
-                style: TextStyle(
-                  color: Colors.blue[200],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   List<String> chars = [
@@ -173,6 +147,8 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
 
   @override
   Widget build(BuildContext context) {
+    final Completer<WebViewController> _controller =
+        Completer<WebViewController>();
     var char = chars[charId];
 
     double height = MediaQuery.of(context).size.height;
@@ -199,16 +175,15 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
                       if (message.message == char) {
                         setState(() {
                           isItDone = false;
-                          _good = true;
                         });
                         print('jp');
+                        increaseOrginIndex!();
                       } else {
                         setState(() {
-                          setState(() {
-                            isItDone = false;
-                            _bad = true;
-                          });
+                          isItDone = false;
                         });
+
+                        decreaseOrginIndex!();
                       }
                     })
               },
@@ -217,104 +192,60 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
               },
             ),
           )
-        : _good
-            // ignore: deprecated_member_use
-            ? ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith((states) {
-                    // If the button is pressed, return green, otherwise blue
-                    if (states.contains(MaterialState.pressed)) {
-                      return Colors.green;
-                    }
-                    return Colors.blue;
-                  }),
-                  textStyle: MaterialStateProperty.resolveWith((states) {
-                    // If the button is pressed, return size 40, otherwise 20
-                    if (states.contains(MaterialState.pressed)) {
-                      return TextStyle(fontSize: 40);
-                    }
-                    return TextStyle(fontSize: 20);
-                  }),
+        : Column(
+            children: [
+              Center(
+                child: Container(
+                    height: height / 3,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15)),
+                      child: ImagePainter.asset(
+                        image,
+                        key: _imageKey,
+                        scalable: true,
+                        initialStrokeWidth: 2,
+                        initialColor: color,
+                        initialPaintMode: PaintMode.freeStyle,
+                      ),
+                    )),
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Expanded(
+                child: Center(
+                    child: charId > 9
+                        ? Text(
+                            'أكتب الحرف',
+                            style: GoogleFonts.cairo(
+                                fontSize: 30,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            'أكتب الرقم',
+                            style: GoogleFonts.cairo(
+                                fontSize: 30,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          )),
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Center(
+                  child: IconButton(
+                icon: const Icon(
+                  Icons.check_circle,
                 ),
-                onPressed: increaseOrginIndex,
-                child: const Text('لننطق الحرف'),
-              )
-            : _bad
-                ? ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith((states) {
-                        // If the button is pressed, return green, otherwise blue
-                        if (states.contains(MaterialState.pressed)) {
-                          return Colors.green;
-                        }
-                        return Colors.blue;
-                      }),
-                      textStyle: MaterialStateProperty.resolveWith((states) {
-                        // If the button is pressed, return size 40, otherwise 20
-                        if (states.contains(MaterialState.pressed)) {
-                          return TextStyle(fontSize: 40);
-                        }
-                        return TextStyle(fontSize: 20);
-                      }),
-                    ),
-                    onPressed: decreaseOrginIndex,
-                    child: const Text('حاول مرة أخرى'),
-                  )
-                : Column(
-                    children: [
-                      Center(
-                        child: Container(
-                            height: height / 3,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15)),
-                              child: ImagePainter.asset(
-                                image,
-                                key: _imageKey,
-                                scalable: true,
-                                initialStrokeWidth: 2,
-                                initialColor: color,
-                                initialPaintMode: PaintMode.freeStyle,
-                              ),
-                            )),
-                      ),
-                      Divider(
-                        thickness: 1,
-                      ),
-                      Expanded(
-                        child: Center(
-                            child: charId > 9
-                                ? Text(
-                                    'أكتب الحرف',
-                                    style: GoogleFonts.cairo(
-                                        fontSize: 30,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                : Text(
-                                    'أكتب الرقم',
-                                    style: GoogleFonts.cairo(
-                                        fontSize: 30,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                      ),
-                      Divider(
-                        thickness: 1,
-                      ),
-                      Center(
-                          child: IconButton(
-                        icon: const Icon(
-                          Icons.check_circle,
-                        ),
-                        iconSize: 50,
-                        color: kSecondaryColor,
-                        splashColor: kSecondaryColor,
-                        onPressed: saveImage,
-                      ))
-                    ],
-                  );
+                iconSize: 50,
+                color: kSecondaryColor,
+                splashColor: kSecondaryColor,
+                onPressed: saveImage,
+              ))
+            ],
+          );
   }
 }

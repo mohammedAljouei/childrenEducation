@@ -147,7 +147,7 @@ class _AuthCardState extends State<AuthCard> {
           key: 'token',
           value: id,
         );
-        saveUser(id);
+        await saveUser(id);
         Navigator.pushNamed(context, '/home');
       }
       // Sign user up

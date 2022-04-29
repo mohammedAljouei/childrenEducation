@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_painter/image_painter.dart';
 import 'package:educatechildren/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // ignore: use_key_in_widget_constructors
 class TryToWrite extends StatefulWidget {
@@ -23,27 +24,51 @@ class _ImagePainterExampleState extends State<TryToWrite> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
-    return Stack(
+    return Column(
       children: [
         Center(
           child: Container(
-              width: width / 1.2,
-              margin: const EdgeInsets.only(
-                  bottom: 200, right: 10, left: 10, top: 60),
-              child: Container(
-                width: 400,
-                height: 400,
+              height: height / 3,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
                 child: ImagePainter.asset(
                   "assets/images/trying/$charId.jpg",
                   key: _imageKey,
                   scalable: true,
-                  initialStrokeWidth: 20,
+                  initialStrokeWidth: 22,
                   initialColor: Colors.black,
                   initialPaintMode: PaintMode.freeStyle,
                 ),
               )),
         ),
+        Divider(
+          thickness: 1,
+        ),
+        Expanded(
+          child: Center(
+              child: charId > 9
+                  ? Text(
+                      'أكتب على الحرف',
+                      style: GoogleFonts.cairo(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Text(
+                      'أكتب على الرقم',
+                      style: GoogleFonts.cairo(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    )),
+        ),
+        Divider(
+          thickness: 1,
+        )
       ],
     );
   }

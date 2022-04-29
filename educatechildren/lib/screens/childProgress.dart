@@ -62,27 +62,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       doneNumList = doneNum.split('/');
       doneLetList = doneLet.split('/');
 
-      animationController1 = AnimationController(
-        vsync: this,
-        // duration: Duration(seconds: 1),
-        // lowerBound: doneLetList.length / 26,
-
-        value: doneNumList.length / 10,
-      );
-      print(doneLetList.length);
-      animationController1.addListener(() {
-        setState(() {
-          // animationController.value = doneLetList.length / 26;
-        });
-      });
-
       print(doneLetList.length);
       print(doneNumList.length);
     });
   }
-
-  late AnimationController animationController;
-  late AnimationController animationController1;
 
   @override
   void initState() {
@@ -90,20 +73,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           _token = value;
           setList(_token);
         }));
-
-    animationController = AnimationController(
-      vsync: this,
-      // duration: Duration(seconds: 1),
-      // lowerBound: doneLetList.length / 26,
-
-      value: doneLetList.length / 26,
-    );
-    print(doneLetList.length);
-    animationController.addListener(() {
-      setState(() {
-        // animationController.value = doneLetList.length / 26;
-      });
-    });
 
     // animationController.repeat();
     super.initState();
@@ -118,11 +87,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    final percentage = (animationController.value * 26) / 100;
 
-    return doneNumList.isEmpty &&
-            doneLetList.isEmpty &&
-            animationController.value == 0.0
+    return doneNumList.isEmpty && doneLetList.isEmpty
         ? Center(
             child: SizedBox(
               child: CircularProgressIndicator(
@@ -243,7 +209,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                             fontSize: 15, color: Colors.black),
                                       ),
                                       TextSpan(
-                                        text: '${doneLetList.length}',
+                                        text: '${doneLetList.length - 1}',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15,
                                             decoration:
@@ -274,7 +240,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                       ),
                                       TextSpan(
                                         text:
-                                            'ال${nameOfLetters[doneLetList.length]}',
+                                            'ال${nameOfLetters[doneLetList.length - 1]}',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15,
                                             decoration:
@@ -295,11 +261,11 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   borderRadius: 3.0,
                                   borderWidth: 2.0,
                                   borderColor: Colors.black,
-                                  value: animationController.value,
+                                  value: (doneLetList.length - 1) / 26,
                                   valueColor: AlwaysStoppedAnimation(
                                       Color.fromARGB(223, 209, 73, 91)),
                                   center: Text(
-                                    '${(doneLetList.length * 100 / 26).round()}%',
+                                    '${((doneLetList.length - 1) * 100 / 26).round()}%',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -363,7 +329,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                             fontSize: 15, color: Colors.black),
                                       ),
                                       TextSpan(
-                                        text: '${doneNumList.length}',
+                                        text: '${doneNumList.length - 1}',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15,
                                             decoration:
@@ -372,7 +338,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                             color: Colors.black),
                                       ),
                                       TextSpan(
-                                        text: ' أرقام من اصل 9',
+                                        text: ' أرقام من اصل 10',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15, color: Colors.black),
                                       ),
@@ -394,7 +360,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                       ),
                                       TextSpan(
                                         text:
-                                            '${nameOfNumbers[doneNumList.length]}',
+                                            '${nameOfNumbers[doneNumList.length - 1]}',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15,
                                             decoration:
@@ -415,11 +381,11 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   borderRadius: 3.0,
                                   borderWidth: 2.0,
                                   borderColor: Colors.black,
-                                  // value: animationController1.value,
+                                  value: (doneNumList.length - 1) / 10,
                                   valueColor: AlwaysStoppedAnimation(
                                       Color.fromARGB(209, 227, 156, 43)),
                                   center: Text(
-                                    '${(doneLetList.length * 100 / 26).round()}%',
+                                    '${((doneNumList.length - 1) * 100 / 10).round()}%',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
