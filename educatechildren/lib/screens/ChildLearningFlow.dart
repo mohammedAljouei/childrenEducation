@@ -340,7 +340,7 @@ class _childFlowCardState extends State<childFlowCard> {
     var list = [
       Learn(id),
       TryToWrite(id),
-      // ValidateWriting(id, handleNextButton, decreaseIndex),
+      ValidateWriting(id, handleNextButton, decreaseIndex),
       ValidatePronunciation(id, handleNextButton),
       Quiz(currentIndex: id, increaseOrginIndex: handleNextButton),
       Image.asset(
@@ -369,14 +369,13 @@ class _childFlowCardState extends State<childFlowCard> {
       )
     ];
     return Container(
-        margin:
-            const EdgeInsets.only(top: 80, bottom: 100, left: 30, right: 30),
+        margin: const EdgeInsets.only(top: 80, bottom: 80, left: 20, right: 20),
         // color: Colors.red,
         child: Column(
           children: [
             SmoothPageIndicator(
                 controller: _controller,
-                count: 4,
+                count: 5,
                 effect: ExpandingDotsEffect(
                     activeDotColor: kSecondaryColor,
                     dotColor: Color.fromARGB(103, 112, 162, 136))),
@@ -397,7 +396,7 @@ class _childFlowCardState extends State<childFlowCard> {
                   ),
                 ],
               ),
-              height: 500,
+              height: height / 1.8,
               child: PageView(
                 onPageChanged: (page) {
                   setState(() {
@@ -406,27 +405,16 @@ class _childFlowCardState extends State<childFlowCard> {
                 },
                 allowImplicitScrolling: true,
                 controller: _controller,
-                // physics: NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 children: [
                   Learn(id),
                   ValidatePronunciation(id, handleNextButton),
+                  ValidateWriting(id, handleNextButton, decreaseIndex),
                   Quiz(currentIndex: id, increaseOrginIndex: handleNextButton),
                   Image.asset(
                     "assets/images/Bubert Stock Image and Video Portfolio.jpg",
                     fit: BoxFit.contain,
                   ),
-                  // Container(
-                  //   height: 50,
-                  //   color: Colors.blueAccent,
-                  // ),
-                  // Container(
-                  //   height: 50,
-                  //   color: Colors.amber,
-                  // ),
-                  // Container(
-                  //   height: 50,
-                  //   color: Colors.blueAccent,
-                  // ),
                 ],
               ),
             ),
@@ -441,7 +429,7 @@ class _childFlowCardState extends State<childFlowCard> {
                 // color: Colors.red,
                 // height: height,
                 margin: const EdgeInsets.only(bottom: 30),
-                child: index == 3
+                child: index == 4
                     ? ElevatedButton(
                         onPressed: handleSuccessPerformance,
                         child: const Text('مرحى! لقد تعلمت الحرف'),

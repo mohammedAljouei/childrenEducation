@@ -1,6 +1,7 @@
 //ignore_for_file: file_names, prefer_const_constructors_in_immutables
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:educatechildren/constants.dart';
 
@@ -129,36 +130,61 @@ class _SpeechScreenState extends State<SpeechScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var hieght = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Column(
       children: [
         Container(
           // margin: const EdgeInsets.only(top: 100, right: 50, left: 50),
           // padding: const EdgeInsets.only(bottom: 15),
+          height: hieght / 3.2,
+          width: width,
           child: Image.asset(
             charsUrls[charId],
-            fit: BoxFit.fitWidth,
-            alignment: Alignment(0, -1),
+            fit: BoxFit.contain,
+            // alignment: Alignment(0, -1),
           ),
         ),
-        Container(
-          // margin: const EdgeInsets.only(
-          //   top: 400,
-          //   left: 10,
-          // ),
-          // padding: const EdgeInsets.only(bottom: 15),
-          child: AvatarGlow(
-            animate: _isListening,
-            glowColor: Theme.of(context).primaryColor,
-            endRadius: 75.0,
-            duration: const Duration(milliseconds: 2000),
-            repeatPauseDuration: const Duration(milliseconds: 100),
-            repeat: true,
-            child: FloatingActionButton(
-              onPressed: () => _listen(),
-              child: Icon(
-                _isListening ? Icons.mic : Icons.mic_none,
+        Divider(
+          thickness: 1,
+        ),
+        Expanded(
+          child: Center(
+              child: charId > 9
+                  ? Text(
+                      'أنطق الحرف',
+                      style: GoogleFonts.cairo(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Text(
+                      'أنطق الرقم',
+                      style: GoogleFonts.cairo(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    )),
+        ),
+        Divider(
+          thickness: 1,
+        ),
+        Expanded(
+          child: Center(
+            child: AvatarGlow(
+              animate: _isListening,
+              glowColor: Theme.of(context).primaryColor,
+              endRadius: 75.0,
+              duration: const Duration(milliseconds: 2000),
+              repeatPauseDuration: const Duration(milliseconds: 100),
+              repeat: true,
+              child: FloatingActionButton(
+                onPressed: () => _listen(),
+                child: Icon(
+                  _isListening ? Icons.mic : Icons.mic_none,
+                ),
+                backgroundColor: kSecondaryColor,
               ),
-              backgroundColor: kSecondaryColor,
             ),
           ),
         )

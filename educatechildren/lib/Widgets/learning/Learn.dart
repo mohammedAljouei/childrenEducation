@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
@@ -57,10 +58,55 @@ class LearnState extends State<Learn> {
     'assets/videos/letters/37.mp4',
   ];
 
+  final nameOfNumbers = [
+    'صفر',
+    'واحد',
+    'اثنين',
+    'ثلاثة',
+    'أربعة',
+    'خمسة',
+    'ستة',
+    'سبعة',
+    'ثمانية',
+    'تسعة'
+  ];
+
+  final nameOfLetters = [
+    'الف',
+    'باء',
+    'تاء',
+    'ثاء',
+    'جيم',
+    'حاء',
+    'خاء',
+    'دال',
+    'ذال',
+    'راء',
+    'زاء',
+    'سين',
+    'شين',
+    'صاد',
+    'ضاد',
+    'طاء',
+    'ظاء',
+    'عين',
+    'غين',
+    'فاء',
+    'قاف',
+    'كاف',
+    'لام',
+    'ميم',
+    'نون',
+    'هاء',
+    'واو',
+    'ياء',
+  ];
+
   @override
   void initState() {
     super.initState();
     print(letVid[index]);
+    print(index);
     _controller = VideoPlayerController.asset(letVid[index])
       ..initialize().then((_) {
         setState(() {});
@@ -81,23 +127,59 @@ class LearnState extends State<Learn> {
                     child: VideoPlayer(_controller)),
               )
             : Container(),
-        Spacer(),
+        Divider(
+          // endIndent: 25,
+          // indent: 25,
+          // height: 30,
+          thickness: 1,
+          // color: Colors.black,
+        ),
+        Expanded(
+          child: Center(
+              child: index > 9
+                  ? Text(
+                      "حرف ال${nameOfLetters[index - 10]}",
+                      style: GoogleFonts.cairo(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Text(
+                      "رقم ${nameOfNumbers[index]}",
+                      style: GoogleFonts.cairo(
+                          fontSize: 30,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    )),
+        ),
+        Divider(
+          // endIndent: 25,
+          // indent: 25,
+          // height: 30,
+          thickness: 1,
+          // color: Colors.black,
+        ),
+        // Spacer(),
         // SizedBox(
         //   height: 20,
         // ),
-        Container(
-          margin: EdgeInsets.only(bottom: 40),
-          child: FloatingActionButton(
-            backgroundColor: kSecondaryColor,
-            onPressed: () {
-              setState(() {
-                _controller.value.isPlaying
-                    ? _controller.pause()
-                    : _controller.play();
-              });
-            },
-            child: Icon(
-              _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        Expanded(
+          child: Center(
+            child: Container(
+              // margin: EdgeInsets.only(bottom: 40),
+              child: FloatingActionButton(
+                backgroundColor: kSecondaryColor,
+                onPressed: () {
+                  setState(() {
+                    _controller.value.isPlaying
+                        ? _controller.pause()
+                        : _controller.play();
+                  });
+                },
+                child: Icon(
+                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                ),
+              ),
             ),
           ),
         ),

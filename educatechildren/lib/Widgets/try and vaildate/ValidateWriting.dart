@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, no_logic_in_create_state
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_painter/image_painter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -174,6 +175,7 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
   Widget build(BuildContext context) {
     var char = chars[charId];
 
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     var color = charId >= 0 && charId <= 9 ? Colors.black : Colors.white;
     var image = charId >= 0 && charId <= 9
@@ -259,16 +261,15 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
                     onPressed: decreaseOrginIndex,
                     child: const Text('حاول مرة أخرى'),
                   )
-                : Stack(
+                : Column(
                     children: [
                       Center(
                         child: Container(
-                            width: width / 1.2,
-                            margin: const EdgeInsets.only(
-                                bottom: 200, right: 10, left: 10, top: 60),
-                            child: Container(
-                              width: 400,
-                              height: 400,
+                            height: height / 3,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15)),
                               child: ImagePainter.asset(
                                 image,
                                 key: _imageKey,
@@ -279,19 +280,39 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
                               ),
                             )),
                       ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Expanded(
+                        child: Center(
+                            child: charId > 9
+                                ? Text(
+                                    'أكتب الحرف',
+                                    style: GoogleFonts.cairo(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : Text(
+                                    'أكتب الرقم',
+                                    style: GoogleFonts.cairo(
+                                        fontSize: 30,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
                       Center(
-                          child: Container(
-                        margin: const EdgeInsets.only(
-                            top: 300, right: 10, left: 10),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.gpp_good,
-                          ),
-                          iconSize: 150,
-                          color: kPrimaryColor,
-                          splashColor: kPrimaryColor,
-                          onPressed: saveImage,
+                          child: IconButton(
+                        icon: const Icon(
+                          Icons.check_circle,
                         ),
+                        iconSize: 50,
+                        color: kSecondaryColor,
+                        splashColor: kSecondaryColor,
+                        onPressed: saveImage,
                       ))
                     ],
                   );

@@ -66,9 +66,10 @@ class _QuizState extends State<Quiz> {
     double width = MediaQuery.of(context).size.width;
 
     return Container(
+      margin: EdgeInsets.all(5),
       // color: kPrimaryBackgroundColor,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             // color: Colors.red,
@@ -90,8 +91,8 @@ class _QuizState extends State<Quiz> {
                   // width: width / 2,
                   child: Image.asset(
                     lettersNumbersimagesUrls[widget.currentIndex],
-                    height: height,
-                    width: width,
+                    // height: height,
+                    // width: width,
                     // fit: BoxFit.cover,
                   ),
                 );
@@ -110,25 +111,27 @@ class _QuizState extends State<Quiz> {
             ),
           ),
           // Text('result ${insideTarget}'),
-          SizedBox(
-            height: height / 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              DraggableCharacter(
-                lettersNumbersimagesUrls[dragList[0]],
-                dragList[0],
+          Divider(),
+          Expanded(
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DraggableCharacter(
+                    lettersNumbersimagesUrls[dragList[0]],
+                    dragList[0],
+                  ),
+                  DraggableCharacter(
+                    lettersNumbersimagesUrls[dragList[1]],
+                    dragList[1],
+                  ),
+                  DraggableCharacter(
+                    lettersNumbersimagesUrls[dragList[2]],
+                    dragList[2],
+                  ),
+                ],
               ),
-              DraggableCharacter(
-                lettersNumbersimagesUrls[dragList[1]],
-                dragList[1],
-              ),
-              DraggableCharacter(
-                lettersNumbersimagesUrls[dragList[2]],
-                dragList[2],
-              ),
-            ],
+            ),
           )
         ],
       ),
