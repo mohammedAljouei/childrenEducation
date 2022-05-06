@@ -1,6 +1,8 @@
 // ignore_for_file: unused_field
 //ignore_for_file: file_names, prefer_const_constructors_in_immutables
 import 'dart:convert';
+import 'package:educatechildren/main.dart';
+import 'package:educatechildren/screens/HomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,6 +74,26 @@ class _AuthCardState extends State<AuthCard> {
       gender = 1;
     }
 
+    await _storage.write(
+      key: 'name',
+      value: _nameController.text,
+    );
+
+    await _storage.write(
+      // !!
+      key: 'gender',
+      value: gender.toString(),
+    );
+
+    await _storage.write(
+      key: 'doneLet',
+      value: '',
+    );
+    await _storage.write(
+      key: 'doneNum',
+      value: '',
+    );
+
     var url =
         "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json";
     final res = await http.put(Uri.parse(url),
@@ -84,19 +106,20 @@ class _AuthCardState extends State<AuthCard> {
             "doneNum": ""
           }
         }));
-    final body = json.decode(res.body);
+    final body = await json.decode(res.body);
     print(body);
   }
 
   void _submit() async {
-    setState(() {});
     setState(() {
       _isLoading = true;
     });
     if (_authMode == AuthMode.Login) {
       // Log user in
+
       const url =
           "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBf5kaROMc7c8Lf0QwChzL4CrkILXTvB5k";
+
       final res = await http.post(Uri.parse(url),
           body: json.encode({
             'email': _emailController.text,
@@ -110,14 +133,45 @@ class _AuthCardState extends State<AuthCard> {
         errorMessage = 'البريد الالكتروني المدخل او كلمة المرور غير صحيحة';
       }
       if (id != null) {
-        // final email = _emailController.text;
-        // final url = 'https://mutamimon.com/381/forget.php?email=$email';
-        // await http.get(Uri.parse(url));
         await _storage.write(
           key: 'token',
           value: id,
         );
-        Navigator.pushNamed(context, '/home');
+
+        var url =
+            "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}/user.json";
+        final res = await http.get(Uri.parse(url));
+        final body = json.decode(res.body);
+        var doneNum = body['doneNum'];
+        var doneLet = body['doneLet'];
+        var name = body['name'];
+        var gender = body['gender'];
+
+        await _storage.write(
+          key: 'name',
+          value: name,
+        );
+
+        await _storage.write(
+          key: 'gender',
+          value: gender.toString(),
+        );
+
+        await _storage.write(
+          key: 'doneLet',
+          value: doneLet,
+        );
+        await _storage.write(
+          key: 'doneNum',
+          value: doneNum,
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => homePage(),
+          ),
+        );
       }
     } else {
       const url =
@@ -147,8 +201,14 @@ class _AuthCardState extends State<AuthCard> {
           key: 'token',
           value: id,
         );
+
         await saveUser(id);
-        Navigator.pushNamed(context, '/home');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => homePage(),
+          ),
+        );
       }
       // Sign user up
     }

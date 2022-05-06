@@ -101,6 +101,7 @@ class _childFlowCardState extends State<childFlowCard> {
   void handleSuccessPerformance() async {
     const _storage = FlutterSecureStorage();
     var token = await _storage.read(key: 'token');
+
     var urlGetFrom =
         "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}/user.json";
     final res = await http.get(Uri.parse(urlGetFrom));
@@ -130,6 +131,11 @@ class _childFlowCardState extends State<childFlowCard> {
                 "doneNum": pastNumbers
               }
             }));
+
+        await _storage.write(
+          key: 'doneLet',
+          value: '$pastLetters/${nameOfLetters[index]}',
+        );
       }
     } else {
       print(numberOfLearndNumbers);
@@ -150,6 +156,11 @@ class _childFlowCardState extends State<childFlowCard> {
                 "doneNum": '$pastNumbers/${nameOfNumbers[id]}'
               }
             }));
+
+        await _storage.write(
+          key: 'doneNum',
+          value: '$pastNumbers/${nameOfNumbers[id]}',
+        );
       }
     }
 
@@ -213,11 +224,6 @@ class _childFlowCardState extends State<childFlowCard> {
                 ],
               ),
             ),
-            // Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.all(Radius.circular(30)),
-            //     ),
-            //     child: list[index]),
             const Spacer(),
             Container(
                 alignment: Alignment.bottomRight,
@@ -233,21 +239,24 @@ class _childFlowCardState extends State<childFlowCard> {
                             minimumSize: Size(200, 80)),
                       )
                     // uncomment below if you use a real device
-                    // : index == 2
-                    //     ? const Text('')
-                    : OutlinedButton(
-                        onPressed: () => {
-                          _controller.animateToPage(++index,
-                              duration: Duration(milliseconds: 333),
-                              curve: Curves.bounceInOut)
-                        },
-                        child: const Text('التالي'),
-                        style: OutlinedButton.styleFrom(
-                            primary: kSecondaryColor,
-                            textStyle: GoogleFonts.elMessiri(fontSize: 30),
-                            side: BorderSide(width: 3, color: kSecondaryColor),
-                            minimumSize: Size(200, 80)),
-                      )),
+                    :
+                    // index == 2 ||
+                    index == 4
+                        ? const Text('')
+                        : OutlinedButton(
+                            onPressed: () => {
+                              _controller.animateToPage(++index,
+                                  duration: Duration(milliseconds: 333),
+                                  curve: Curves.bounceInOut)
+                            },
+                            child: const Text('التالي'),
+                            style: OutlinedButton.styleFrom(
+                                primary: kSecondaryColor,
+                                textStyle: GoogleFonts.elMessiri(fontSize: 30),
+                                side: BorderSide(
+                                    width: 3, color: kSecondaryColor),
+                                minimumSize: Size(200, 80)),
+                          )),
           ],
         ));
   }

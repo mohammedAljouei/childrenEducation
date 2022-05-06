@@ -13,11 +13,6 @@ import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 class ChildProgress extends StatelessWidget {
   ChildProgress({Key? key}) : super(key: key);
-  final _storage = FlutterSecureStorage();
-  Future getAuthToken() async {
-    var token = await _storage.read(key: 'token');
-    return token;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,43 +38,31 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   List<String> doneNumList = [];
 
   final _storage = FlutterSecureStorage();
-  Future getAuthToken() async {
-    var token = await _storage.read(key: 'token');
-    return token;
+  Future getPerformance() async {
+    var doneNum = await _storage.read(key: 'doneNum');
+    var doneLet = await _storage.read(key: 'doneLet');
+    return [doneNum, doneLet];
   }
 
-  void setList(token) async {
-    var url =
-        "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}/user.json";
-    final res = await http.get(Uri.parse(url));
-    final body = json.decode(res.body);
+  void setPerformance(arr) async {
+    doneNum = arr[0];
 
-    doneNum = body['doneNum'];
-
-    doneLet = body['doneLet'];
+    doneLet = arr[1];
 
     setState(() {
       doneNumList = doneNum.split('/');
       doneLetList = doneLet.split('/');
-
-      print(doneLetList.length);
-      print(doneNumList.length);
     });
   }
 
   @override
   void initState() {
-    getAuthToken().then((value) => setState(() {
-          _token = value;
-          setList(_token);
+    getPerformance().then((value) => setState(() {
+          var arr = value;
+          setPerformance(arr);
         }));
 
-    // animationController.repeat();
     super.initState();
-    // getAuthToken().then((value) => setState(() {
-    //       _token = value;
-    //       setList(_token);
-    //     }));
   }
 
   GlobalKey<ScaffoldState> _glogalKey = GlobalKey<ScaffoldState>();

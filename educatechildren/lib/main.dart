@@ -24,10 +24,16 @@ class _MyAppState extends State<MyApp> {
   var _token = null;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     checkAuth().then((value) => setState(() {
           _token = value;
         }));
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // final _storage = FlutterSecureStorage();
     // _storage.deleteAll();
     return MaterialApp(
@@ -39,11 +45,6 @@ class _MyAppState extends State<MyApp> {
               textDirection: TextDirection.rtl, // عربي
               child: _token == null ? AuthScreen() : TabsScreen(),
             ),
-        '/home': (context) => Directionality(
-              // add this
-              textDirection: TextDirection.rtl, // عربي
-              child: homePage(),
-            )
       },
     );
   }

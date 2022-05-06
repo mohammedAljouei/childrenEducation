@@ -25,9 +25,15 @@ class _UpdateInfoState extends State<UpdateInfo> {
   GlobalKey<ScaffoldState> _glogalKey = GlobalKey<ScaffoldState>();
 
   final _storage = FlutterSecureStorage();
-  Future getAuthToken() async {
+
+  Future getInfo() async {
+    var name1 = await _storage.read(key: 'name');
+    var gender1 = await _storage.read(key: 'gender');
+    var doneLet1 = await _storage.read(key: 'doneLet');
+    var doneNum1 = await _storage.read(key: 'doneNum');
     var token = await _storage.read(key: 'token');
-    return token;
+    var arr = [name1, gender1, doneLet1, doneNum1, token];
+    return arr;
   }
 
   String name = '';
@@ -35,28 +41,24 @@ class _UpdateInfoState extends State<UpdateInfo> {
   var doneLet = '';
   var doneNum = '';
   String imageSelected = '';
+  var _token = '';
 
-  var _token = null;
-
-  void setList(token) async {
-    var url =
-        "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}/user.json";
-    final res = await http.get(Uri.parse(url));
-    final body = json.decode(res.body);
-    print(body);
-
+  void setInfo(arr) {
     setState(() {
-      if (body['gender'] == 0) {
+      name = arr[0];
+
+      if (arr[1] == '0') {
         title = 'أهلا صديقنا';
         imageSelected = "assets/images/boy.jpg";
       } else {
         title = 'أهلا صديقتنا';
         imageSelected = "assets/images/girl2.jpg";
       }
-      name = body['name'];
-      doneLet = body['doneLet'];
-      doneNum = body['doneNum'];
     });
+
+    doneLet = arr[2];
+    doneNum = arr[3];
+    _token = arr[4];
   }
 
   late FixedExtentScrollController scrollController;
@@ -71,10 +73,10 @@ class _UpdateInfoState extends State<UpdateInfo> {
   void initState() {
     super.initState();
     scrollController = FixedExtentScrollController(initialItem: index);
-    getAuthToken().then((value) => setState(() {
-          _token = value;
-          setList(_token);
-        }));
+
+    getInfo().then(
+      (value) => setInfo(value),
+    );
   }
 
   final IconData icon = Icons.person;
@@ -91,6 +93,16 @@ class _UpdateInfoState extends State<UpdateInfo> {
     if (index == 1) {
       gender = 1;
     }
+
+    await _storage.write(
+      key: 'name',
+      value: _nameController.text,
+    );
+
+    await _storage.write(
+      key: 'gender',
+      value: gender.toString(),
+    );
 
     var url =
         "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json";
@@ -275,7 +287,7 @@ class _UpdateInfoState extends State<UpdateInfo> {
                                 builder: (context) => CupertinoActionSheet(
                                   actions: [buildPicker()],
                                   cancelButton: CupertinoActionSheetAction(
-                                    child: Text('الغاء'),
+                                    child: Text('حفظ'),
                                     onPressed: () => {Navigator.pop(context)},
                                   ),
                                 ),
