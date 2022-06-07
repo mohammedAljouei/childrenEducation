@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../Widgets/try and vaildate/TryToWrite.dart';
 
 class UpdateInfo extends StatefulWidget {
@@ -103,23 +101,7 @@ class _UpdateInfoState extends State<UpdateInfo> {
       key: 'gender',
       value: gender.toString(),
     );
-
-    var url =
-        "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${id}.json";
-    final res = await http.put(Uri.parse(url),
-        body: json.encode({
-          "user": {
-            "gender": gender,
-            "name": _nameController.text,
-            "id": id,
-            "doneLet": doneLet,
-            "doneNum": doneNum
-          }
-        }));
-    final body = json.decode(res.body);
-    print(body);
     reload!();
-    // Navigator.pop(context);
   }
 
   @override

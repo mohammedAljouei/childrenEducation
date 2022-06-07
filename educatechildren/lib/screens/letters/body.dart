@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../ChildLearningFlow.dart';
 
-class Body extends StatelessWidget {
-  Body({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
+  @override
+  BodyState createState() => BodyState();
+}
+
+class BodyState extends State<Body> {
+  String doneLet = '';
+
+  List<String> doneLetList = [];
+
+  final _storage = const FlutterSecureStorage();
 
   List<String> imagesUrl = [
     "assets/images/alphabet/arabic alphabets continued_أ ملون.png",
@@ -35,10 +47,71 @@ class Body extends StatelessWidget {
     "assets/images/alphabet/arabic alphabets continued_يد ملون.png",
   ];
 
+  List<String> lockedImagesUrl = [
+    "assets/images/alphabet/arabic alphabets continued_أ ملون.png",
+    "assets/images/alphabet/arabic alphabets continued_برتقال ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_تفاح ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_ثلج ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_جزر ملون_g .png",
+    "assets/images/alphabet/arabic alphabets continued_حذاء ملون_g.png",
+    "assets/images/alphabet/arabic_alphabets_continued_خس_ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_دب ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_ذرة ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_رمان ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_زهرة ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_سمكة ملونة_g.png",
+    "assets/images/alphabet/arabic alphabets continued_شمس ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_صندوص ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_ضرس ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_طماطم ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_ظرف ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_عصفور ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_غيمة ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_فراولة ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_قلم ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_كتاب ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_ليمون ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_منظاد ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_نحلة ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_هرة ملون_g .png",
+    "assets/images/alphabet/arabic alphabets continued_ورقة ملون_g.png",
+    "assets/images/alphabet/arabic alphabets continued_يد ملون_g.png",
+  ];
+
+  Future getPerformance() async {
+    var doneLet = await _storage.read(key: 'doneLet');
+    return doneLet;
+  }
+
+  void setPerformance(str) {
+    doneLet = str;
+
+    setState(() {
+      doneLetList = doneLet.split('/');
+      print(doneLetList.length);
+    });
+  }
+
+  @override
+  void initState() {
+    getPerformance().then((value) => setState(() {
+          var str = value;
+          setPerformance(str);
+        }));
+
+    super.initState();
+  }
+
+  void reload() {
+    getPerformance().then((value) => setState(() {
+          var str = value;
+          setPerformance(str);
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Container(
@@ -62,9 +135,13 @@ class Body extends StatelessWidget {
               children: [
                 for (var i = 0; i < imagesUrl.length; i++)
                   letterWidget(
-                    image: imagesUrl[i],
+                    image: doneLetList.length >= i + 1
+                        ? imagesUrl[i]
+                        : lockedImagesUrl[i],
                     rotate: imagesUrl[i].length % 2 == 0 ? -0.08 : 0.08,
                     letterId: i + 10,
+                    reload: reload,
+                    allowed: doneLetList.length >= i + 1 ? true : false,
                   ),
               ],
             ),
@@ -92,12 +169,15 @@ class letterWidget extends StatelessWidget {
     required this.image,
     required this.rotate,
     required this.letterId,
+    required this.reload,
+    required this.allowed,
   }) : super(key: key);
 
   final String image;
   final double rotate;
   final int letterId;
-
+  final Function reload;
+  final bool allowed;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,10 +185,14 @@ class letterWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ChildFlow(letterId)),
-          );
+          allowed
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChildFlow(letterId)),
+                ).then((data) {
+                  reload();
+                })
+              : {};
         },
         child: Image.asset(
           image,

@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'numbers/numbers_screen.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'ChildProgress.dart';
 import 'Auth.dart';
 import 'UpdateInfo.dart';
@@ -110,6 +108,7 @@ class _homePageState extends State<homePage> {
     return Directionality(
         textDirection: TextDirection.rtl, // عربي
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           key: _glogalKey,
           drawer: Drawer(
             child: ListView(
@@ -165,7 +164,7 @@ class _homePageState extends State<homePage> {
                   minLeadingWidth: 0,
                   leading: Icon(Icons.logout),
                   title: Text(
-                    'تسجيل خروج',
+                    'إعادة تعيين',
                     style: GoogleFonts.elMessiri(
                       fontSize: 17,
                     ),

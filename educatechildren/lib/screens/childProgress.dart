@@ -6,8 +6,6 @@ import 'package:educatechildren/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../constants.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
@@ -264,7 +262,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         SizedBox(
-                          height: deviceSize.height / 40,
+                          height: deviceSize.height / 71,
+                          // was 40 for iphone
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 20),

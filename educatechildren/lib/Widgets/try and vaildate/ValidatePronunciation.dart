@@ -35,7 +35,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
   List<String> chars = [
     "صفر",
     "واحد",
-    "اثنين",
+    "اث",
     "ثلاثة",
     "أربعة",
     "خمسة",
@@ -44,32 +44,32 @@ class _SpeechScreenState extends State<SpeechScreen> {
     "ثمانية",
     "تسعة",
     "1000",
-    "با",
-    "متى",
-    " ث",
-    "جيم",
-    "حأ",
-    "خاء",
-    "دال",
+    "ب",
+    "ت",
+    "ث",
+    "ج",
+    "ح",
+    "خ",
+    "د",
     "ذ",
     "ر",
-    "إزاي",
-    "سين",
-    "شين",
-    "صاد",
-    "ضاد",
-    "طاء",
-    "ظاء",
-    "عين",
-    "غين",
-    "فاء",
-    "قاف",
-    "كاف",
-    "لام",
-    "ميم",
+    "ز",
+    "س",
+    "ش",
+    "ص",
+    "ض",
+    "ط",
+    "ض", // not ظ
+    "ع",
+    "غ",
+    "ف",
+    "ق",
+    "ك",
+    "ل",
+    "م",
     "نون",
-    "هاء",
-    "واو",
+    "ه",
+    "و",
     "يا",
   ];
 
@@ -215,7 +215,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
             //val.recognizedWords.codeUnits[1] == char.codeUnits[0]
             // newText == chars[charId] || _text == chars[charId]
 
-            if (arr[1] == arr2[0]) {
+            if (_text.contains(chars[charId])) {
               setState(() => _isListening = false);
               _speech.stop();
               once();

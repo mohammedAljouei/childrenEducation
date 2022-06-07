@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../ChildLearningFlow.dart';
 
-class Body extends StatelessWidget {
-  Body({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
+  @override
+  BodyState createState() => BodyState();
+}
+
+class BodyState extends State<Body> {
+  String doneNum = '';
+
+  List<String> doneNumList = [];
+
+  final _storage = const FlutterSecureStorage();
 
   var imagesUrl = {
     0: "assets/images/numbers/Arabic_numbers_0.png",
@@ -16,6 +28,49 @@ class Body extends StatelessWidget {
     8: "assets/images/numbers/Arabic_numbers_8.png",
     9: "assets/images/numbers/Arabic_numbers_9.png",
   };
+
+  var lockedImagesUrl = {
+    0: "assets/images/numbers/Arabic_numbers_0.png",
+    1: "assets/images/numbers/Arabic_numbers_1_g.png",
+    2: "assets/images/numbers/Arabic_numbers_2_g.png",
+    3: "assets/images/numbers/Arabic_numbers_3_g.png",
+    4: "assets/images/numbers/Arabic_numbers__4_g.png",
+    5: "assets/images/numbers/Arabic_numbers__5_g.png",
+    6: "assets/images/numbers/Arabic_numbers__6_g.png",
+    7: "assets/images/numbers/Arabic_numbers__7_g.png",
+    8: "assets/images/numbers/Arabic_numbers_8_g.png",
+    9: "assets/images/numbers/Arabic_numbers_9_g.png",
+  };
+
+  Future getPerformance() async {
+    var doneNum = await _storage.read(key: 'doneNum');
+    return doneNum;
+  }
+
+  void setPerformance(str) {
+    doneNum = str;
+
+    setState(() {
+      doneNumList = doneNum.split('/');
+    });
+  }
+
+  @override
+  void initState() {
+    getPerformance().then((value) => setState(() {
+          var str = value;
+          setPerformance(str);
+        }));
+
+    super.initState();
+  }
+
+  void reload() {
+    getPerformance().then((value) => setState(() {
+          var str = value;
+          setPerformance(str);
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +97,14 @@ class Body extends StatelessWidget {
               reverse: true,
               children: [
                 for (var i = 0; i < imagesUrl.length; i++)
-                  numberWidget(
-                    image: imagesUrl[i]!,
-                    rotate: i % 2 == 0 ? -0.08 : 0.08,
+                  NumberWidget(
+                    image: doneNumList.length >= i + 1
+                        ? imagesUrl[i]!
+                        : lockedImagesUrl[i]!,
+                    rotate: imagesUrl[i]!.length % 2 == 0 ? -0.08 : 0.08,
                     numberId: i,
+                    reload: reload,
+                    allowed: doneNumList.length >= i + 1 ? true : false,
                   ),
               ],
             ),
@@ -67,29 +126,37 @@ class Body extends StatelessWidget {
   }
 }
 
-class numberWidget extends StatelessWidget {
-  const numberWidget({
+class NumberWidget extends StatelessWidget {
+  const NumberWidget({
     Key? key,
     required this.image,
     required this.rotate,
     required this.numberId,
+    required this.reload,
+    required this.allowed,
   }) : super(key: key);
 
   final String image;
   final double rotate;
   final int numberId;
+  final Function reload;
+  final bool allowed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      transform: new Matrix4.rotationZ(rotate),
+      transform: Matrix4.rotationZ(rotate),
       padding: const EdgeInsets.only(bottom: 15),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ChildFlow(numberId)),
-          );
+          allowed
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChildFlow(numberId)),
+                ).then((data) {
+                  reload();
+                })
+              : {};
         },
         child: Image.asset(
           image,

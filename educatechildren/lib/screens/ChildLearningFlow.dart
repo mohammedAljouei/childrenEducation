@@ -11,8 +11,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../Widgets/try and vaildate/ValidatePronunciation.dart';
 import '../Widgets/quiz/Quiz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ChildFlow extends StatefulWidget {
   final id;
@@ -102,61 +100,24 @@ class _childFlowCardState extends State<childFlowCard> {
     const _storage = FlutterSecureStorage();
     var token = await _storage.read(key: 'token');
 
-    var urlGetFrom =
-        "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}/user.json";
-    final res = await http.get(Uri.parse(urlGetFrom));
-    final body = json.decode(res.body);
+    String? pastLetters = await _storage.read(key: 'doneLet');
+    String? pastNumbers = await _storage.read(key: 'doneNum');
 
-    String pastLetters = body['doneLet'];
-    String pastNumbers = body['doneNum'];
-    int numberOfLearndLetters = pastLetters.split('/').length;
-    int numberOfLearndNumbers = pastNumbers.split('/').length;
-    print(token);
+    int numberOfLearndLetters = pastLetters!.split('/').length;
+    int numberOfLearndNumbers = pastNumbers!.split('/').length;
+
     if (id > 9) {
-      print(numberOfLearndLetters);
-      print(id);
-      print(pastLetters.split('/').length);
       if (numberOfLearndLetters - 1 == id - 10 ||
           (pastLetters.split('/').length == 1 && id - 10 == 0)) {
         var index = id - 10;
-        var urlPostTo =
-            "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}.json";
-        await http.put(Uri.parse(urlPostTo),
-            body: json.encode({
-              "user": {
-                "gender": body['gender'],
-                "name": body['name'],
-                "id": token,
-                "doneLet": '$pastLetters/${nameOfLetters[index]}',
-                "doneNum": pastNumbers
-              }
-            }));
-
         await _storage.write(
           key: 'doneLet',
           value: '$pastLetters/${nameOfLetters[index]}',
         );
       }
     } else {
-      print(numberOfLearndNumbers);
-      print(id);
-      print(pastLetters.split('/').length);
-
       if (numberOfLearndNumbers - 1 == id ||
           (pastLetters.split('/').length == 1 && id == 0)) {
-        var urlPostTo =
-            "https://kids-1e245-default-rtdb.asia-southeast1.firebasedatabase.app/users/${token}.json";
-        await http.put(Uri.parse(urlPostTo),
-            body: json.encode({
-              "user": {
-                "gender": body['gender'],
-                "name": body['name'],
-                "id": token,
-                "doneLet": pastLetters,
-                "doneNum": '$pastNumbers/${nameOfNumbers[id]}'
-              }
-            }));
-
         await _storage.write(
           key: 'doneNum',
           value: '$pastNumbers/${nameOfNumbers[id]}',
@@ -180,7 +141,7 @@ class _childFlowCardState extends State<childFlowCard> {
           children: [
             SmoothPageIndicator(
                 controller: _controller,
-                count: 5,
+                count: 6,
                 effect: ExpandingDotsEffect(
                     activeDotColor: kSecondaryColor,
                     dotColor: Color.fromARGB(103, 112, 162, 136))),
@@ -231,17 +192,16 @@ class _childFlowCardState extends State<childFlowCard> {
                 child: index == 5
                     ? ElevatedButton(
                         onPressed: handleSuccessPerformance,
-                        child: const Text('مرحى! لقد تعلمت الحرف'),
+                        child: id > 9
+                            ? const Text('مرحى! لقد تعلمت الحرف')
+                            : const Text('مرحى! لقد تعلمت الرقم'),
                         style: ElevatedButton.styleFrom(
                             primary: kSecondaryColor,
                             textStyle: GoogleFonts.elMessiri(fontSize: 20),
                             side: BorderSide(width: 3, color: kSecondaryColor),
                             minimumSize: Size(200, 80)),
                       )
-                    // uncomment below if you use a real device
-                    :
-                    // index == 2 ||
-                    index == 4
+                    : index == 2 || index == 4
                         ? const Text('')
                         : OutlinedButton(
                             onPressed: () => {

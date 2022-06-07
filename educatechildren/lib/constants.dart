@@ -52,7 +52,7 @@ const List<String> lettersNumbersimagesUrls = [
 const nameOfNumbers = [
   'صفر',
   'واحد',
-  'اثنين',
+  'اثنان',
   'ثلاثة',
   'أربعة',
   'خمسة',
