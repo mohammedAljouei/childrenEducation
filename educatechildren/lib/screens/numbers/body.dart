@@ -148,22 +148,37 @@ class NumberWidget extends StatelessWidget {
       transform: Matrix4.rotationZ(rotate),
       padding: const EdgeInsets.only(bottom: 15),
       child: GestureDetector(
-        onTap: () {
-          allowed
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChildFlow(numberId)),
-                ).then((data) {
-                  reload();
-                })
-              : {};
-        },
-        child: Image.asset(
-          image,
-          fit: BoxFit.cover,
-          alignment: Alignment(0, -1),
-        ),
-      ),
+          onTap: () {
+            allowed
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChildFlow(numberId)),
+                  ).then((data) {
+                    reload();
+                  })
+                : {};
+          },
+          child: allowed
+              ? Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  alignment: Alignment(0, -1),
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(image),
+                      fit: BoxFit.cover,
+                      alignment: const Alignment(0, -1),
+                    ),
+                  ),
+                  child: Image.asset(
+                    'assets/images/removebg-preview.png',
+                    // fit: BoxFit.cover,
+                    alignment: const Alignment(0, 0),
+                  ),
+                )),
     );
   }
 }
