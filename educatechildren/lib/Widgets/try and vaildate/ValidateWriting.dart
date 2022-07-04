@@ -46,7 +46,7 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
     var length = await imageFile.length();
 
     // string to uri
-    var uri = Uri.parse("https://mutamimon.com/admin/test.php");
+    var uri = Uri.parse("https://getvisit.net/save_image.php");
 
     // create multipart request
     var request = http.MultipartRequest("POST", uri);
@@ -165,7 +165,7 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
                 bottom: 200, right: 10, left: 10, top: 60),
             child: WebView(
               initialUrl:
-                  'https://mutamimon.com/myModel/index.php?m=$url=$_resulte',
+                  'https://getvisit.net/get_predict.php?m=$url=$_resulte',
               javascriptMode: JavascriptMode.unrestricted,
               javascriptChannels: {
                 JavascriptChannel(
