@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d663243-4511-4aba-a075-c97d45d2ec2d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/educatechildren/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/Bubert Stock Image and Video Portfolio.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_أ ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_برتقال ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_برتقال ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_تفاح ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_تفاح ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ثلج ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ثلج ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_جزر ملون .png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_جزر ملون_g .png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_حذاء ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_حذاء ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_دب ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_دب ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ذرة ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ذرة ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_رمان ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_رمان ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_زهرة ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_زهرة ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_سمكة ملونة.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_سمكة ملونة_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_شمس ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_شمس ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_صندوص ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_صندوص ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ضرس ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ضرس ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_طماطم ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_طماطم ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ظرف ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ظرف ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_عصفور ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_عصفور ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_غيمة ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_غيمة ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_فراولة ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_فراولة ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_قلم ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_قلم ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_كتاب ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_كتاب ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ليمون ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ليمون ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_منظاد ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_منظاد ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_نحلة ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_نحلة ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_هرة ملون .png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_هرة ملون_g .png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ورقة ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_ورقة ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_يد ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic alphabets continued_يد ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic_alphabets_continued_خس_ملون.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/assets/images/alphabet/arabic_alphabets_continued_خس_ملون_g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/lib/Widgets/try and vaildate/ValidatePronunciation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/lib/Widgets/try and vaildate/ValidatePronunciation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/lib/Widgets/try and vaildate/ValidateWriting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/lib/Widgets/try and vaildate/ValidateWriting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/lib/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/lib/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/lib/screens/ChildLearningFlow.dart" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/lib/screens/ChildLearningFlow.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/lib/screens/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/lib/screens/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/lib/screens/letters/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/lib/screens/letters/body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/educatechildren/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/educatechildren/windows/flutter/generated_plugins.cmake" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2B7yW64kyghLXab4X2ZkWsWIzFB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/educatechildren/lib/main.dart" />
+      <option name="workingDirectory" value="$PROJECT_DIR$/educatechildren" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Dart Command Line App.main.dart" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d663243-4511-4aba-a075-c97d45d2ec2d" name="Default Changelist" comment="" />
+      <created>1656271446376</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656271446376</updated>
+    </task>
+    <servers />
+  </component>
+</project>
