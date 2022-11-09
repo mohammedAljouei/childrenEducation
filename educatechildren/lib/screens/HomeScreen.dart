@@ -345,7 +345,7 @@ class _homePageState extends State<homePage> {
                                       margin: const EdgeInsets.only(top: 20),
                                       transform: Matrix4.rotationZ(-0.1),
                                       child: Image.asset(
-                                        "assets/images/alphabet/arabic alphabets continued_رمان ملون.png",
+                                        "assets/images/1.png",
                                         scale: 3.7,
                                       ),
                                     ),
@@ -383,6 +383,7 @@ class _homePageState extends State<homePage> {
                   child: Image.asset(
                     "assets/images/61_Children_S_Day_Balloons_Children-re.png",
                     fit: BoxFit.cover,
+                    
                   ),
                 )
               ],

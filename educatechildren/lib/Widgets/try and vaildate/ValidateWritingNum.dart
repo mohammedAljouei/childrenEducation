@@ -14,13 +14,13 @@ import 'dart:async';
 import '../../constants.dart';
 
 // ignore: use_key_in_widget_constructors
-class ValidateWriting extends StatefulWidget {
+class ValidateWriting_Num extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final charId;
   final void Function()? increaseOrginIndex;
   final void Function()? decreaseOrginIndex;
   // ignore: use_key_in_widget_constructors
-  const ValidateWriting(
+  const ValidateWriting_Num(
       this.charId, this.increaseOrginIndex, this.decreaseOrginIndex);
 
   @override
@@ -28,7 +28,7 @@ class ValidateWriting extends StatefulWidget {
       _ImagePainterExampleState(charId, increaseOrginIndex, decreaseOrginIndex);
 }
 
-class _ImagePainterExampleState extends State<ValidateWriting> {
+class _ImagePainterExampleState extends State<ValidateWriting_Num> {
   final charId;
   final void Function()? increaseOrginIndex;
   final void Function()? decreaseOrginIndex;
@@ -44,7 +44,6 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
   late File _image;
   var _directory;
   List? _output = [];
-  bool incorrect = false;
 
   @override
   void initState() {
@@ -80,22 +79,23 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
   }
 
   Future detectimage(File image) async {
-    loadmodel();
+    // loadmodel();
     var output = await Tflite.runModelOnImage(
         path: image.path,
         numResults: 2,
         threshold: 0.6,
         imageMean: 127.5,
         imageStd: 127.5);
+    bool incorrect = false;
     setState(() {
       _output = output;
 
       loading = false;
+      if (_output == null) return;
       if (_output![0]['confidence'] >= 0.5 &&
-          (chars[10] == chars[charId] ||
-              _output![0]['label'] == chars[charId])) {
+          _output![0]['label'] == chars[charId]) {
         print(
-            '------------------------------------------${_output![0]['confidence']}');
+            '-----------------------------------${_output![0]['confidence']}||${_output![0]['label']}');
         increaseOrginIndex!;
         setState(() {
           isItDone = true;
@@ -103,19 +103,24 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
         });
       } else {
         isItDone = false;
-        print("-----------${_output![0]['confidence'] >= 0.5}");
-        print("-----------${_output![0]['label']}");
+        print(
+            '-----------------------------------${_output![0]['confidence']}||${_output![0]['label']}');
         print("-----------${chars[charId]}");
-        decreaseOrginIndex!;
         incorrect = true;
+        decreaseOrginIndex!;
       }
     });
+
+    if (incorrect) {
+      showFloatingFlushbar(
+          context: context, message: "حاول مرة أخرى", isError: false);
+    }
   }
 
   Future loadmodel() async {
     await Tflite.loadModel(
-        model: 'assets/ML/Letters/model_unquant.tflite',
-        labels: 'assets/ML/Letters/labels.txt');
+        model: 'assets/ML/numbers/model_unquant.tflite',
+        labels: 'assets/ML/numbers/labels.txt');
   }
 
   @override
@@ -209,10 +214,10 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
     "8 ثمانية",
     "9 تسعة",
     "الف",
-    "0 باء",
-    "1 تاء",
-    "2 ثاء",
-    "3 جيم",
+    "باء",
+    "تاء",
+    "ثاء",
+    "جيم",
     "حاء",
     "خاء",
     "دال",
@@ -401,6 +406,7 @@ class _ImagePainterExampleState extends State<ValidateWriting> {
       messageSize: 30,
       backgroundColor: isError! ? Colors.red : Colors.white.withOpacity(1),
       borderColor: Color.fromARGB(255, 39, 93, 41),
+      
       duration: Duration(seconds: 3),
       margin: EdgeInsets.all(20),
     ) // <bool> is the type of the result passed to dismiss() and collected by show().then((result){})

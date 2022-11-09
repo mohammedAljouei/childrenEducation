@@ -336,13 +336,15 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: 'الرقم القادم: رقم ',
+                                        text: 'الرقم القادم:  ',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15, color: Colors.black),
                                       ),
                                       TextSpan(
                                         text:
-                                            '${nameOfNumbers[doneNumList.length - 1]}',
+                                        doneNumList.length == 11 ? 
+                                            'لقد أكملت الأرقام':
+                                            'رقم ${nameOfNumbers[doneNumList.length - 2]}',
                                         style: GoogleFonts.elMessiri(
                                             fontSize: 15,
                                             decoration:

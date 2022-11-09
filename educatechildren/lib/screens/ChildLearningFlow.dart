@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
+import 'package:educatechildren/Widgets/try%20and%20vaildate/ValidateWritingNum.dart';
 import 'package:educatechildren/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../Widgets/learning/Learn.dart';
 import '../Widgets/try and vaildate/TryToWrite.dart';
 import '../Widgets/try and vaildate/ValidateWriting.dart';
@@ -135,10 +137,21 @@ class _childFlowCardState extends State<childFlowCard> {
     double height = MediaQuery.of(context).size.height;
 
     return Container(
-        margin: const EdgeInsets.only(top: 80, bottom: 80, left: 20, right: 20),
+        margin: const EdgeInsets.only(top: 50, bottom: 20, left: 20, right: 20),
         // color: Colors.red,
-        child: Column(
+        child: Column(                                                              
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              
+              child: CircularPercentIndicator(
+                  radius: 30.0,
+                  lineWidth: 10.0,
+                  percent: index/5,
+                  // ignore: prefer_const_constructors
+                  // center: Text("${index/6}")
+                  )
+            ),
             SmoothPageIndicator(
                 controller: _controller,
                 count: 6,
@@ -146,7 +159,7 @@ class _childFlowCardState extends State<childFlowCard> {
                     activeDotColor: kSecondaryColor,
                     dotColor: Color.fromARGB(103, 112, 162, 136))),
             SizedBox(
-              height: 30,
+              height: (18 - 0.254),
             ),
             Container(
               // padding: EdgeInsets.all(3),
@@ -175,11 +188,13 @@ class _childFlowCardState extends State<childFlowCard> {
                 children: [
                   Learn(id),
                   TryToWrite(id),
-                  ValidateWriting(id, handleNextButton, decreaseIndex),
+                  (id >= 0 && id <= 9)
+                      ? ValidateWriting_Num(id, handleNextButton, decreaseIndex)
+                      : ValidateWriting(id, handleNextButton, decreaseIndex),
                   ValidatePronunciation(id, handleNextButtonPronunciation),
                   Quiz(currentIndex: id, increaseOrginIndex: handleNextButton),
                   Image.asset(
-                    "assets/images/Bubert Stock Image and Video Portfolio.jpg",
+                    "assets/images/BubertStockImageandVideoPortfolio.jpg",
                     fit: BoxFit.contain,
                   ),
                 ],
@@ -201,7 +216,7 @@ class _childFlowCardState extends State<childFlowCard> {
                             side: BorderSide(width: 3, color: kSecondaryColor),
                             minimumSize: Size(200, 80)),
                       )
-                    : index == 2 || index == 4
+                    : index == 20
                         ? const Text('')
                         : OutlinedButton(
                             onPressed: () => {
